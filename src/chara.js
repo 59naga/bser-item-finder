@@ -1,10 +1,17 @@
+import localeJa from './locales/ja.json'
 import { imagepPrefixUrl, imageSuffixUrl } from './constant'
 
 export class Chara {
-  // convert array values to object key-value
   static extractProperties(charaArray) {
-    const [name, src, weapons] = charaArray
-    return { name, src, weapons }
+    const [id, src, weapons] = charaArray
+    return {
+      id,
+      src,
+      weapons,
+      ja: {
+        id: localeJa[id],
+      },
+    }
   }
 
   constructor(charaArray) {
@@ -14,16 +21,16 @@ export class Chara {
     })
   }
 
+  getProps() {
+    const { id, src, weapons } = this
+    return { id, src, weapons }
+  }
+
   getSrc() {
     return `${imagepPrefixUrl}${this.src}`
   }
 
   getSrcThumbnail(scale = 50) {
     return `${imagepPrefixUrl}${this.src}${imageSuffixUrl}${scale}`
-  }
-
-  getProps() {
-    const { name, src, weapons } = this
-    return { name, src, weapons }
   }
 }

@@ -6,7 +6,6 @@ import localeJa from './locales/ja.json'
 import { imagepPrefixUrl, imageSuffixUrl } from './constant'
 
 export class Item {
-  // convert array values to object key-value
   static extractProperties(itemArray) {
     const [id, src, details, parents, children] = itemArray
     const [type, typeSub, rarity, stats, stackable, quantity] = details
@@ -200,6 +199,11 @@ export class Item {
     Object.keys(props).forEach((key) => {
       this[key] = props[key]
     })
+  }
+
+  getProps() {
+    const { id, src, type, typeSub, rarity, stats, stackable, quantity, parents, children, areas } = this
+    return { id, src, type, typeSub, rarity, stats, stackable, quantity, parents, children, areas }
   }
 
   getSrc() {
