@@ -1,6 +1,10 @@
-import { deepStrictEqual } from "assert";
+import { strictEqual, deepStrictEqual } from "assert";
+export { version } from "../package";
 
 import * as finder from "../src";
+it("バージョンを返すべき", () => {
+  strictEqual(finder.version.version);
+});
 
 it("ジャガイモの情報と子孫のツリー情報を返すべき", () => {
   const item = finder.find("Potato");
@@ -63,30 +67,38 @@ it("皮の入手場所を返すべき(30%以上)", () => {
 it("パウンドケーキが作成できるエリアを返すべき", () => {
   const found = finder.findCreatableAreas("pound cake");
   deepStrictEqual(found, [
-    "chapel",
     [
-      ["milk", 3],
-      ["branch", 5]
+      "chapel",
+      [
+        ["milk", 3],
+        ["branch", 5]
+      ]
     ],
-    "avenue",
     [
-      ["milk", 6],
-      ["branch", 4]
+      "avenue",
+      [
+        ["milk", 6],
+        ["branch", 4]
+      ]
     ],
-    "hospital",
     [
-      ["milk", 5],
-      ["branch", 4]
+      "hospital",
+      [
+        ["milk", 5],
+        ["branch", 4]
+      ]
     ]
   ]);
 });
 it("ガントレットが作成できるエリアを返すべき(手袋無視)", () => {
   const found = finder.findCreatableAreas("gauntlet", "cotton glove");
   deepStrictEqual(found, [
-    "hotel",
     [
-      ["scrap metal", 8],
-      ["iron ore", 7]
+      "hotel",
+      [
+        ["scrap metal", 8],
+        ["iron ore", 7]
+      ]
     ]
   ]);
 });

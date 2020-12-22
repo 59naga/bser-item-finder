@@ -3,6 +3,8 @@ import dictAreas from "./dict/areas.json";
 import dictAnimals from "./dict/animals.json";
 import localeJa from "./locales/ja.json";
 
+export { version } from "../package";
+
 const imagepPrefixUrl =
   "https://static.wikia.nocookie.net/blacksurvivaleternalreturn_gamepedia_en/images/";
 const imageSuffixUrl = "/revision/latest/scale-to-width-down/100";
@@ -104,25 +106,21 @@ export function findCreatableAreas(id, withOutMaterials = []) {
     .map(area => area.name);
 
   allMatchedAreaNames.forEach(areaName => {
-    creatables.push(
+    creatables.push([
       areaName,
       materials.map(item => {
         const area = item.areas.find(area => area.name === areaName);
-        return [
-          item.id,
-          area.amount,
-          ...area.animals.map(animal => [animal.name, animal.rate].join(","))
-        ];
+        return [item.id, area.amount, ...area.animals.map(animal => [animal.name, animal.rate])];
       })
-    );
+    ]);
   });
 
   return creatables;
 }
 export function findCreatableHighRarityItems() {
-  const highRarityItems = findAll({ rarity: { gte: 2 }, children: {gte: 1} });
+  const highRarityItems = findAll({ rarity: { gte: 2 }, children: { gte: 1 } });
 
-  const areas = {}
+  const areas = {};
   dictAreas.forEach(area => {
     const [name, materials] = area;
     const materialNames = [];
@@ -151,18 +149,18 @@ export function findCreatableHighRarityItems() {
       });
 
     const creatables = highRarityItems.filter(item => {
-      if(!item.getMaterials) {
-        return false
+      if (!item.getMaterials) {
+        return false;
       }
       const names = item.getMaterials().map(material => material.id);
-      const nameMatched = names.filter(name => materialNames.indexOf(name) > -1)
-      return names.length == nameMatched.length
-    })
+      const nameMatched = names.filter(name => materialNames.indexOf(name) > -1);
+      return names.length == nameMatched.length;
+    });
 
-    areas[name] = creatables
+    areas[name] = creatables;
   });
 
-  return areas
+  return areas;
 }
 export function findAll(conditions = {}, options = {}) {
   let found = dictItems
