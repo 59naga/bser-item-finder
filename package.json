@@ -1,13 +1,14 @@
 {
-  "private": true,
   "name": "@59naga/bser-item-finder",
   "version": "0.0.0-pre",
-  "description": "[WIP] Eternal Return: Black Survival Item Search Library",
+  "description": "Eternal Return: Black Survival Item Search Library",
   "scripts": {
-    "hot": "mocha --watch"
+    "hot": "mocha --watch",
+    "postversion": "git push && conventional-github-releaser -p atom -t $GITHUB_CGRT"
   },
   "devDependencies": {
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "esm": "^3.2.25"
