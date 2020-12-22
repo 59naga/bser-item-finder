@@ -1,0 +1,40 @@
+env:
+  es6: true
+  node: true
+  mocha: true
+
+extends:
+  - standard
+  - plugin:prettier/recommended
+
+plugins:
+  - prettier
+
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+
+rules:
+  no-path-concat:
+    - warn
+
+  prettier/prettier:
+    - error
+    - singleQuote: true
+      semi: false
+      printWidth: 100
+
+  object-shorthand:
+    - error
+    - always
+
+  require-await:
+    - warn
+
+  camelcase:
+    - warn
+    
