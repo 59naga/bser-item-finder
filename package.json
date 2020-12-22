@@ -1,6 +1,6 @@
 {
   "name": "@59naga/bser-item-finder",
-  "version": "0.0.0-pre",
+  "version": "0.0.0",
   "description": "Eternal Return: Black Survival Item Search Library",
   "scripts": {
     "hot": "mocha --watch",
