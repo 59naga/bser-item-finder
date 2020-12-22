@@ -1,33 +1,11 @@
 import dictAnimals from './dict/animals.json'
 import dictAreas from './dict/areas.json'
+import dictCharacters from './dict/characters.json'
 import dictItems from './dict/items.json'
 import { Item } from './item'
+import { Chara } from './chara'
 
 export { version } from '../package'
-
-const defaultItemNames = [
-  'water',
-  'bread',
-  // default weapons
-  // "kitchen knife",
-  // "rusty sword",
-  // "hatchet",
-  // "walther ppk",
-  // "fedorova",
-  // "long rifle",
-  // "needle",
-  // "short spear",
-  // "hammer",
-  // "short rod",
-  // "baseball",
-  // "razor",
-  // "bow",
-  // "short crossbow",
-  // "cotton glove",
-  // "bamboo",
-  // "starter guitar",
-  // "steel chain",
-]
 
 export function find(...args) {
   return findById(...args)
@@ -84,7 +62,7 @@ export function findCreatableAreas(id, withOutMaterials = []) {
     return creatables
   }
   materials = materials.filter((material) => {
-    return defaultItemNames.concat(toArray(withOutMaterials)).indexOf(material.id) === -1
+    return toArray(withOutMaterials).indexOf(material.id) === -1
   })
 
   const [{ areas: firstAreas }, ...anotherItems] = materials
@@ -114,8 +92,8 @@ export function findCreatableAreas(id, withOutMaterials = []) {
 
   return creatables
 }
-export function findCreatableHighRarityItems() {
-  const highRarityItems = findAll({ rarity: { gte: 2 }, children: { gte: 1 } })
+export function findCreatableHighRarityItems(conditions = {}) {
+  const highRarityItems = findAll({ ...conditions, rarity: { gte: 2 }, children: { gte: 2 } })
 
   const areas = {}
   dictAreas.forEach((area) => {
@@ -123,9 +101,7 @@ export function findCreatableHighRarityItems() {
     const materialNames = []
     materials
       .map(([materialName, materialCount]) => {
-        const [, animalMaterials] = dictAnimals.find(
-          ([animalName]) => materialName === animalName
-        ) || [null, []]
+        const [, animalMaterials] = dictAnimals.find(([animalName]) => materialName === animalName) || [null, []]
         const realisticMaterials = animalMaterials.filter(([materialName, rate]) => rate >= 0.3)
         return [materialName, materialCount, realisticMaterials]
       })
@@ -162,7 +138,7 @@ export function findCreatableHighRarityItems() {
 export function findAll(conditions = {}, options = {}) {
   const found = dictItems
     .filter((itemArray) => {
-      const props = Item.getItemProperties(itemArray)
+      const props = Item.extractProperties(itemArray)
       return Item.getCondition(props, conditions)
     })
     .filter((itemArray, index) => {
@@ -175,11 +151,51 @@ export function findAll(conditions = {}, options = {}) {
       }
       return true
     })
-    .map((itemArray) => new Item(itemArray))
 
-  return found
+  return found.map((itemArray) => new Item(itemArray))
 }
 
 export function toArray(strOrArray) {
   return strOrArray instanceof Array ? strOrArray : [strOrArray]
+}
+
+export function getTypes() {
+  const types = []
+  const typeSubs = {}
+
+  dictItems.forEach((itemArray) => {
+    const props = Item.extractProperties(itemArray)
+    if (types.indexOf(props.type) === -1) {
+      types.push(props.type)
+      typeSubs[props.type] = []
+    } else if (props.typeSub && typeSubs[props.type].indexOf(props.typeSub) === -1) {
+      typeSubs[props.type].push(props.typeSub)
+    }
+  })
+
+  const flatten = []
+  types
+    .map((type) => [type, typeSubs[type]])
+    .forEach(([type, typeSub]) => {
+      if (typeSub.length) {
+        typeSub.forEach((name) => {
+          flatten.push(name)
+        })
+        return
+      }
+
+      flatten.push(type)
+    })
+
+  return flatten
+}
+
+export function getCharacters() {
+  const characters = []
+
+  dictCharacters.forEach((dictData) => {
+    characters.push(new Chara(dictData))
+  })
+
+  return characters
 }

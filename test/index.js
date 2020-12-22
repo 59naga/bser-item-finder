@@ -5,6 +5,69 @@ export { version } from '../package'
 it('バージョンを返すべき', () => {
   strictEqual(finder.version.version)
 })
+it('アイテム種をすべて返すべき', () => {
+  deepStrictEqual(finder.getTypes(), [
+    'food',
+    'beverage',
+    'head',
+    'chest',
+    'arm',
+    'leg',
+    'accessory',
+    'dagger',
+    'two-handed sword',
+    'axe',
+    'dual swords',
+    'pistol',
+    'assault rifle',
+    'sniper rifle',
+    'rapier',
+    'spear',
+    'hammer',
+    'bat',
+    'throw',
+    'shuriken',
+    'bow',
+    'crossbow',
+    'glove',
+    'tonfa',
+    'head',
+    'nunchaku',
+    'whip',
+    'material',
+    'summon',
+  ])
+})
+it('キャラごとの装備可能な武器種を返すべき', () => {
+  deepStrictEqual(
+    finder.getCharacters().map((chara) => chara.getProps()),
+    [
+      { name: 'adriana', src: '6/6f/Adriana_Mini.png', weapons: ['throw'] },
+      { name: 'aya', src: '2/22/Aya_Mini.png', weapons: ['pistol', 'assault rifle', 'sniper'] },
+      { name: 'chiara', src: '9/98/Chiara_Mini.png', weapons: ['rapier'] },
+      { name: 'fiora', src: 'a/a6/Fiora_Mini.png', weapons: ['rapier', 'spear', 'two-handed sword'] },
+      { name: 'hart', src: 'a/ab/Hart_Mini.png', weapons: ['guitar'] },
+      { name: 'hyejin', src: '4/4c/Hyejin_Mini.png', weapons: ['bow', 'shuriken'] },
+      { name: 'hyunwoo', src: '8/85/Hyunwoo_Mini.png', weapons: ['glove', 'tonfa'] },
+      { name: 'isol', src: '0/06/Isol_Mini.png', weapons: ['assault rifle', 'pistol'] },
+      { name: 'jackie', src: 'd/d5/Jackie_Mini.png', weapons: ['dagger', 'two-handed sword', 'axe', 'dual swords'] },
+      { name: 'li_dailin', src: '8/87/Li_Dailin_Mini.png', weapons: ['glove', 'nunchaku'] },
+      { name: 'magnus', src: '8/87/Magnus_Mini.png', weapons: ['hammer', 'bat'] },
+      { name: 'nadine', src: 'a/a9/Nadine_Mini.png', weapons: ['bow', 'crossbow'] },
+      { name: 'shoichi', src: '8/82/Shoichi_Mini.png', weapons: ['dagger'] },
+      { name: 'silvia', src: '4/4d/Silvia_Mini.png', weapons: ['pistol'] },
+      { name: 'sissela', src: 'd/dc/Sissela_Mini.png', weapons: ['shuriken', 'throw'] },
+      { name: 'xiukai', src: '9/99/Xiukai_Mini.png', weapons: ['spear', 'dagger'] },
+      { name: 'yuki', src: '8/87/Yuki_Mini.png', weapons: ['two-handed sword', 'dual swords'] },
+      { name: 'zahir', src: '4/4c/Zahir_Mini.png', weapons: ['throw', 'shuriken'] },
+    ]
+  )
+})
+
+it('すべての両手剣を検索', () => {
+  const found = finder.findAll({ type: 'two-handed sword' })
+  strictEqual(found.length, 15)
+})
 
 it('ジャガイモの情報と子孫のツリー情報を返すべき', () => {
   const item = finder.find('Potato')
@@ -65,7 +128,7 @@ it('皮の入手場所を返すべき(30%以上)', () => {
 })
 
 it('パウンドケーキが作成できるエリアを返すべき', () => {
-  const found = finder.findCreatableAreas('pound cake')
+  const found = finder.findCreatableAreas('pound cake', ['water', 'bread'])
   deepStrictEqual(found, [
     [
       'chapel',
@@ -103,21 +166,11 @@ it('ガントレットが作成できるエリアを返すべき(手袋無視)',
   ])
 })
 
-it('エリア単体で作成可能な上位アイテムを返すべき', () => {
-  const found = finder.findCreatableHighRarityItems()
+it('エリア単体で作成可能な上位アイテムを返すべき（ただし武器はピストル種のみ）', () => {
+  const found = finder.findCreatableHighRarityItems({ weaponThenOnly: 'pistol' })
   deepStrictEqual(
     found.beach.map((item) => item.id),
-    [
-      'canned cod liver',
-      'safety helmet',
-      'leather shield',
-      'chain scythe',
-      'beretta m92f',
-      'wooden bow',
-      'gold',
-      'ruby',
-      'telephoto camera',
-    ]
+    ['canned cod liver', 'safety helmet', 'leather shield', 'beretta m92f', 'gold', 'ruby', 'telephoto camera']
   )
 })
 

@@ -3,13 +3,11 @@ import dictAreas from './dict/areas.json'
 import dictItems from './dict/items.json'
 import localeJa from './locales/ja.json'
 
-const imagepPrefixUrl =
-  'https://static.wikia.nocookie.net/blacksurvivaleternalreturn_gamepedia_en/images/'
-const imageSuffixUrl = '/revision/latest/scale-to-width-down/100'
+import { imagepPrefixUrl, imageSuffixUrl } from './constant'
 
 export class Item {
   // convert array values to object key-value
-  static getItemProperties(itemArray) {
+  static extractProperties(itemArray) {
     const [id, src, details, parents, children] = itemArray
     const [type, typeSub, rarity, stats, stackable, quantity] = details
     return {
@@ -46,7 +44,7 @@ export class Item {
   }
 
   static getCondition(props, conditions = {}) {
-    let { stats, type, typeSub, rarity, parents, children } = conditions
+    let { stats, type, rarity, parents, children, weaponThenOnly } = conditions
     if (typeof stats === 'string') {
       stats = new RegExp(stats)
     }
@@ -58,10 +56,7 @@ export class Item {
     }
 
     // 不合致したものにfalseを返す
-    if (type != null && type !== props.type) {
-      return false
-    }
-    if (typeSub != null && typeSub !== props.typeSub) {
+    if (type != null && type !== props.type && type !== props.typeSub) {
       return false
     }
     if (typeof rarity === 'number' && rarity !== props.rarity) {
@@ -89,7 +84,13 @@ export class Item {
     ) {
       return false
     }
-    if (children != null && children.gte != null && children.gte > props.children.length) {
+    const notGteChildrenLength = children != null && children.gte != null && children.gte > props.children.length
+    if (notGteChildrenLength) {
+      return false
+    }
+
+    const unmatchedWeapon = typeof weaponThenOnly === 'string' && props.type === 'weapon' && props.typeSub !== weaponThenOnly
+    if (unmatchedWeapon) {
       return false
     }
 
@@ -97,7 +98,66 @@ export class Item {
     return true
   }
 
-  constructor(id, includeParents = true, includeChildren = true, includeArea = true) {
+  static getAnimals(propId, areaName) {
+    const animals = []
+
+    dictAnimals.forEach((animal) => {
+      const [animalName, drops] = animal
+      drops.forEach((drop) => {
+        const [dropName, rate] = drop
+        if (dropName !== propId) {
+          return
+        }
+
+        dictAreas.forEach((area) => {
+          const [name, materials] = area
+          if (name !== areaName) {
+            return
+          }
+          materials.forEach(([materialName, count]) => {
+            if (materialName !== animalName) {
+              return
+            }
+            if (!count) {
+              return
+            }
+            if (rate < 0.3) {
+              // ドロップ率が稀のものをエリアの素材として扱わない
+              return
+            }
+            animals.push({ name: animalName, count, rate })
+          })
+        })
+      })
+    })
+
+    return animals
+  }
+
+  static getDefaultEquipments() {
+    return [
+      'kitchen knife',
+      'rusty sword',
+      'hatchet',
+      'walther ppk',
+      'fedorova',
+      'long rifle',
+      'needle',
+      'short spear',
+      'hammer',
+      'short rod',
+      'baseball',
+      'razor',
+      'bow',
+      'short crossbow',
+      'cotton glove',
+      'bamboo',
+      'starter guitar',
+      'steel chain',
+    ]
+  }
+
+  constructor(id, options = {}) {
     let itemArray = id
     if (typeof id === 'string') {
       const key = String(id).toLowerCase()
@@ -108,35 +168,34 @@ export class Item {
       return null
     }
 
-    const props = Item.getItemProperties(itemArray)
-    if (includeParents) {
-      props.parents = props.parents.map((parent) => new Item(parent, true, false))
+    const props = Item.extractProperties(itemArray)
+
+    // modify properties
+    if (options.includeParents !== false) {
+      props.parents = props.parents.map((parent) => new Item(parent, { includeChildren: false }))
     }
-    if (includeChildren) {
-      props.children = props.children.map((child) => new Item(child, false, true))
+    if (options.includeChildren !== false) {
+      props.children = props.children.map((child) => new Item(child, { includeParents: false }))
     }
+    dictAreas.forEach((area) => {
+      const [name, materials] = area
 
-    if (includeArea) {
-      dictAreas.forEach((area) => {
-        const [name, materials] = area
-
-        let amount = null
-        materials.forEach(([materialName, materialAmount]) => {
-          if (materialName !== props.id) {
-            return
-          }
-          if (!materialAmount) {
-            return
-          }
-          amount = materialAmount
-        })
-
-        const animals = getAnimals(props.id, name)
-        if (amount != null || animals.length) {
-          props.areas.push({ name, amount, animals })
+      let amount = null
+      materials.forEach(([materialName, materialAmount]) => {
+        if (materialName !== props.id) {
+          return
         }
+        if (!materialAmount) {
+          return
+        }
+        amount = materialAmount
       })
-    }
+
+      const animals = Item.getAnimals(props.id, name)
+      if (amount != null || animals.length) {
+        props.areas.push({ name, amount, animals })
+      }
+    })
 
     Object.keys(props).forEach((key) => {
       this[key] = props[key]
@@ -147,8 +206,8 @@ export class Item {
     return `${imagepPrefixUrl}${this.src}`
   }
 
-  getSrcThumbnail() {
-    return `${imagepPrefixUrl}${this.src}${imageSuffixUrl}`
+  getSrcThumbnail(scale = 100) {
+    return `${imagepPrefixUrl}${this.src}${imageSuffixUrl}${scale}`
   }
 
   getMaterials() {
@@ -167,40 +226,4 @@ export class Item {
 
     return materials
   }
-}
-
-export function getAnimals(propId, areaName) {
-  const animals = []
-
-  dictAnimals.forEach((animal) => {
-    const [animalName, drops] = animal
-    drops.forEach((drop) => {
-      const [dropName, rate] = drop
-      if (dropName !== propId) {
-        return
-      }
-
-      dictAreas.forEach((area) => {
-        const [name, materials] = area
-        if (name !== areaName) {
-          return
-        }
-        materials.forEach(([materialName, count]) => {
-          if (materialName !== animalName) {
-            return
-          }
-          if (!count) {
-            return
-          }
-          if (rate < 0.3) {
-            // ドロップ率が稀のものをエリアの素材として扱わない
-            return
-          }
-          animals.push({ name: animalName, count, rate })
-        })
-      })
-    })
-  })
-
-  return animals
 }
