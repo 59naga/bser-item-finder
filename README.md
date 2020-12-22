@@ -6,14 +6,14 @@ Installation
 ---
 
 ```bash
-yarn add @59naga/bser-item-finder
+yarn add bser-item-finder
 yarn add esm
 
 node -r esm
 ```
 
 ```js
-import * as finder from "@59naga/bser-item-finder";
+import * as finder from "bser-item-finder";
 console.log(finder.version) // 0.0.0
 ```
 

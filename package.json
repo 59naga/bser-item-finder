@@ -1,7 +1,7 @@
 {
-  "name": "@59naga/bser-item-finder",
+  "name": "bser-item-finder",
   "version": "0.0.1",
-  "main": "src/index.js",
+  "module": "src/index.js",
   "description": "Eternal Return: Black Survival Item Search Library",
   "scripts": {
     "hot": "mocha --watch",
