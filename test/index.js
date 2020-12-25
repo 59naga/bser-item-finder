@@ -198,7 +198,7 @@ it('パン派生で作れるもの一覧を返すべき', () => {
     ['garlic bread', ['garlic', ['cemetery', 5], ['alley', 6], ['temple', 6]]],
     ['bungeoppang', ['carp', ['forest', 2], ['cemetery', 2], ['pond', 9]]],
     ['choco pie', ['chocolate', ['uptown', 5], ['archery range', 4], ['avenue', 6]]],
-    ['bun', ['coffee', ['uptown', 5], ['dock', 6], ['cemetery', 5]]],
+    ['bun', ['coffee', ['uptown', 5], ['dock', 5], ['cemetery', 5]]],
     [
       'hamburger',
       [
