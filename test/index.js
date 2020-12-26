@@ -5,6 +5,9 @@ export { version } from '../package'
 it('バージョンを返すべき', () => {
   strictEqual(finder.version.version)
 })
+it('レアリティ名を返すべき', () => {
+  deepStrictEqual(finder.findOne().getRarityName(), 'common')
+})
 it('アイテム種をすべて返すべき', () => {
   deepStrictEqual(finder.getTypes(), [
     'food',
@@ -40,13 +43,38 @@ it('アイテム種をすべて返すべき', () => {
 })
 it('キャラごとの装備可能な武器種を返すべき', () => {
   deepStrictEqual(
+    finder.getFirstEquipments().map((item) => item.id),
+    [
+      'kitchen knife',
+      'rusty sword',
+      'hatchet',
+      'walther ppk',
+      'fedorova',
+      'long rifle',
+      'needle',
+      'short spear',
+      'hammer',
+      'short rod',
+      'razor',
+      'bow',
+      'short crossbow',
+      'cotton glove',
+      'bamboo',
+      'starter guitar',
+      'steel chain',
+      'baseball',
+    ]
+  )
+})
+it('キャラごとの装備可能な武器種を返すべき', () => {
+  deepStrictEqual(
     finder.getCharacters().map((chara) => chara.getProps()),
     [
       { id: 'adriana', src: '6/6f/Adriana_Mini.png', weapons: ['throw'] },
       { id: 'aya', src: '2/22/Aya_Mini.png', weapons: ['pistol', 'assault rifle', 'sniper'] },
       { id: 'chiara', src: '9/98/Chiara_Mini.png', weapons: ['rapier'] },
       { id: 'fiora', src: 'a/a6/Fiora_Mini.png', weapons: ['rapier', 'spear', 'two-handed sword'] },
-      { id: 'hart', src: 'a/ab/Hart_Mini.png', weapons: ['guitar'] },
+      { id: 'hart', src: 'a/ab/Hart_Mini.png', weapons: ['head'] },
       { id: 'hyejin', src: '4/4c/Hyejin_Mini.png', weapons: ['bow', 'shuriken'] },
       { id: 'hyunwoo', src: '8/85/Hyunwoo_Mini.png', weapons: ['glove', 'tonfa'] },
       { id: 'isol', src: '0/06/Isol_Mini.png', weapons: ['assault rifle', 'pistol'] },
@@ -63,12 +91,50 @@ it('キャラごとの装備可能な武器種を返すべき', () => {
     ]
   )
 })
-
-it('すべての両手剣を検索', () => {
+it('ビーチで取得できる素材を返すべき', () => {
+  const found = finder.getAreaItems('beach').map((item) => item.id)
+  deepStrictEqual(found, [
+    'branch',
+    'stone',
+    'cod',
+    'walther ppk',
+    'hammer',
+    'hatchet',
+    'steel chain',
+    'bike helmet',
+    'wetsuit',
+    'binoculars',
+    'surveillance camera',
+    'snare',
+    'mouse trap',
+    'piano wire',
+    'turtle shell',
+    'stallion medal',
+    'can',
+    'carbonated water',
+    'gemstone',
+    'pickaxe',
+    'leather',
+    'meat',
+  ])
+})
+it('ビーチで取得できる素材を返すべき', () => {
+  const found = finder
+    .getAreaItemsOnlyEquipments('beach', [
+      'brasil gauntlet',
+      'imperial crown',
+      'battle suit',
+      'sword of shah jahan',
+      'eod boots',
+      'white crane fan',
+    ])
+    .map((item) => item.id)
+  deepStrictEqual(found, ['turtle shell', 'branch', 'pickaxe', 'gemstone', 'hammer', 'wetsuit', 'leather'])
+})
+it('すべての両手剣を検索すべき', () => {
   const found = finder.findAll({ type: 'two-handed sword' })
   strictEqual(found.length, 15)
 })
-
 it('ジャガイモの情報と子孫のツリー情報を返すべき', () => {
   const item = finder.find('Potato')
   deepStrictEqual(
@@ -336,16 +402,30 @@ it('ビルドに必要な素材数を返すべき', () => {
   ])
 })
 // TODO 生命の木のカウントしてない
-it('ルート時点で作成可能な中間武器の表示すべき', () => {
+it('ルート時点で作成可能な中間武器の表示すべき1', () => {
   const progresses = finder.progressPerAreas(
     ['dock', 'uptown', 'forest', 'beach'],
     ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine']
   )
   const idOnly = progresses.map((progress) => progress.map((item) => (item ? item.id : null)))
   deepStrictEqual(idOnly, [
-    [null, null, 'sheath', null, 'magazine', 'twin swords'],
-    [null, 'suit', 'sheath', 'feather boots', 'magazine', 'twin swords'],
-    [null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
-    ['motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+    ['twin swords', null, null, 'sheath', null, 'magazine'],
+    ['twin swords', null, 'suit', 'sheath', 'feather boots', 'magazine'],
+    ['dioscuri', null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
+    ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
+  ])
+})
+it('ルート時点で作成可能な中間武器の表示すべき2', () => {
+  const progresses = finder.progressPerAreas(
+    ['hotel', 'beach', 'uptown', 'avenue', 'dock'],
+    ['brasil gauntlet', 'imperial crown', 'battle suit', 'sword of shah jahan', 'eod boots', 'white crane fan']
+  )
+  const idOnly = progresses.map((progress) => progress.map((item) => (item ? item.id : null)))
+  deepStrictEqual(idOnly, [
+    ['gauntlet', null, 'military suit', null, null, null],
+    ['bone gauntlet', null, 'bulletproof vest', 'sword of shah jahan', null, null],
+    ['bone gauntlet', null, 'bulletproof vest', 'sword of shah jahan', null, null],
+    ['bone gauntlet', 'imperial crown', 'bulletproof vest', 'sword of shah jahan', 'steel knee pads', 'gilded quill fan'],
+    ['brasil gauntlet', 'imperial crown', 'battle suit', 'sword of shah jahan', 'eod boots', 'gilded quill fan'],
   ])
 })

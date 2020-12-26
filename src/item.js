@@ -3,7 +3,7 @@ import dictAreas from './dict/areas.json'
 import dictItems from './dict/items.json'
 import localeJa from './locales/ja.json'
 
-import { imagepPrefixUrl, imageSuffixUrl } from './constant'
+import { imagepPrefixUrl } from './constant'
 
 export class Item {
   static extractProperties(itemArray) {
@@ -136,29 +136,6 @@ export class Item {
     return animals
   }
 
-  static getDefaultEquipments() {
-    return [
-      'kitchen knife',
-      'rusty sword',
-      'hatchet',
-      'walther ppk',
-      'fedorova',
-      'long rifle',
-      'needle',
-      'short spear',
-      'hammer',
-      'short rod',
-      'baseball',
-      'razor',
-      'bow',
-      'short crossbow',
-      'cotton glove',
-      'bamboo',
-      'starter guitar',
-      'steel chain',
-    ]
-  }
-
   constructor(id, options = {}) {
     let itemArray = id
     if (typeof id === 'string') {
@@ -213,8 +190,8 @@ export class Item {
     return `${imagepPrefixUrl}${this.src}`
   }
 
-  getSrcThumbnail(scale = 100) {
-    return `${imagepPrefixUrl}${this.src}${imageSuffixUrl}${scale}`
+  getRarityName() {
+    return ['common', 'uncommon', 'rare', 'epic', 'legendary'][this.rarity - 1]
   }
 
   getMaterials() {

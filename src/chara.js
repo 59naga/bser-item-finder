@@ -1,5 +1,5 @@
 import localeJa from './locales/ja.json'
-import { imagepPrefixUrl, imageSuffixUrl } from './constant'
+import { imagepPrefixUrl } from './constant'
 
 export class Chara {
   static extractProperties(charaArray) {
@@ -28,9 +28,5 @@ export class Chara {
 
   getSrc() {
     return `${imagepPrefixUrl}${this.src}`
-  }
-
-  getSrcThumbnail(scale = 50) {
-    return `${imagepPrefixUrl}${this.src}${imageSuffixUrl}${scale}`
   }
 }

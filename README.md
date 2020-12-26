@@ -20,7 +20,7 @@ console.log(finder.version) // 0.0.0
 API
 ---
 
-### `finder.progressPerAreas(areaNames, itemIds)` => Array<Array<Item>, ...>
+### `finder.progressPerAreas(areaNames, itemIds, firstEquipmentId)` => Array<Array<Item>, ...>
 Returns the equipment `Item` (intermediate and complete) that can be created as the route progresses.
 
 ```js
@@ -29,10 +29,10 @@ const progresses = finder.progressPerAreas(
   ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine']
 )
 // [
-//   [null, null, 'sheath', null, 'magazine', 'twin swords'],
-//   [null, 'suit', 'sheath', 'feather boots', 'magazine', 'twin swords'],
-//   [null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
-//   ['motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+//   ['twin swords', null, null, 'sheath', null, 'magazine'],
+//   ['twin swords', null, 'suit', 'sheath', 'feather boots', 'magazine'],
+//   ['dioscuri', null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
+//   ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
 // ]
 ```
 

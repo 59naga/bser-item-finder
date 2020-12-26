@@ -2,6 +2,7 @@ import dictAnimals from './dict/animals.json'
 import dictAreas from './dict/areas.json'
 import dictCharacters from './dict/characters.json'
 import dictItems from './dict/items.json'
+import dictWeapons from './dict/weapons.json'
 import { Item } from './item'
 import { Chara } from './chara'
 
@@ -36,23 +37,6 @@ export function findParents(children, conditions = {}, options = {}) {
   })
 
   return parents
-}
-export function findChildren(parents, conditions = {}, options = {}) {
-  const children = findAll({ parents }, { ...options })
-
-  // 検索対象はツリーから除外する
-  const parentIds = (typeof parents === 'string' ? [parents] : parents).map((id) => {
-    return id.toLowerCase()
-  })
-  children.forEach((child) => {
-    child.parents.forEach((parent, index) => {
-      if (parentIds.indexOf(parent.id) > -1) {
-        child.parents.splice(index, 1)
-      }
-    })
-  })
-
-  return children
 }
 export function findCreatableAreas(id, withOutMaterials = []) {
   const creatables = []
@@ -98,7 +82,7 @@ export function findCreatableHighRarityItems(conditions = {}) {
   const areas = {}
   dictAreas.forEach((area) => {
     const [areaName, areaMaterials] = area
-    const materialNames = getAreaMaterialNames(areaMaterials)
+    const materialNames = getAreaMaterialIds(areaMaterials)
 
     const creatables = highRarityItems.filter((item) => {
       const names = item.getMaterials().map((material) => material.id)
@@ -175,7 +159,7 @@ export function getCharacters() {
   return characters
 }
 
-export function getAreaMaterialNames(materials) {
+export function getAreaMaterialIds(materials) {
   const materialNames = []
 
   materials
@@ -217,15 +201,15 @@ export function countMaterials(id) {
   return Object.entries(count)
 }
 
-export function progressPerAreas(areas, id) {
+export function progressPerAreas(areas, id, firstEquipmentId = null) {
   const progresses = []
 
-  const items = findAll({ id })
+  const items = findAll({ id }).sort((a, b) => id.indexOf(a.id) - id.indexOf(b.id))
   const relatedEquipments = getRelatedEquipments(items)
 
   for (let index = 0; index < areas.length; index++) {
     const currentAreas = areas.slice(0, index + 1)
-    const equipments = findCreatableRelatedEquipments(currentAreas, relatedEquipments)
+    const equipments = findCreatableRelatedEquipments(currentAreas, relatedEquipments, firstEquipmentId)
     progresses.push(equipments)
   }
 
@@ -237,9 +221,13 @@ export function getRelatedEquipments(items) {
 
   items.forEach((item) => {
     const equipments = []
-    equipments.push(item)
+    if (item.type === 'armor' || item.type === 'weapon') {
+      equipments.push(item)
+    }
+
     item.getComponents().forEach((component) => {
-      if (!component.children.length) {
+      const notEquipment = !(component.type === 'armor' || component.type === 'weapon')
+      if (notEquipment) {
         return
       }
 
@@ -254,11 +242,14 @@ export function getRelatedEquipments(items) {
   return relatedEquipments
 }
 
-export function findCreatableRelatedEquipments(areaNames, relatedEquipments) {
+export function findCreatableRelatedEquipments(areaNames, relatedEquipments, firstEquipmentId = null) {
   const materials = []
+  if (firstEquipmentId) {
+    materials.push(firstEquipmentId)
+  }
   areaNames.forEach((areaName) => {
     const [, areaMaterials] = dictAreas.find(([dictAreaName]) => dictAreaName === areaName)
-    getAreaMaterialNames(areaMaterials).forEach((material) => {
+    getAreaMaterialIds(areaMaterials).forEach((material) => {
       if (materials.indexOf(material) === -1) {
         materials.push(material)
       }
@@ -271,4 +262,44 @@ export function findCreatableRelatedEquipments(areaNames, relatedEquipments) {
       return names.length === nameMatched.length
     })
   })
+}
+
+export function getAreaItems(name) {
+  let items = []
+
+  dictAreas.forEach((area) => {
+    const [areaName, areaMaterials] = area
+    if (areaName !== name) {
+      return
+    }
+    items = getAreaMaterialIds(areaMaterials).map((id) => findById(id))
+  })
+
+  return items
+}
+
+export function getAreaItemsOnlyEquipments(name, equipmentIds) {
+  const areaItemIds = getAreaItems(name).map(item => item.id)
+
+  const materials = []
+  findAll({ id: equipmentIds })
+    .sort((a, b) => equipmentIds.indexOf(a.id) - equipmentIds.indexOf(b.id))
+    .forEach((item) => {
+      item.getMaterials().forEach((material) => {
+        if (areaItemIds.indexOf(material.id) === -1) {
+          return
+        }
+        if (materials.find((exists) => exists.id === material.id)) {
+          return
+        }
+        materials.push(material)
+      })
+    })
+
+  return materials
+}
+
+export function getFirstEquipments() {
+  const id = dictWeapons.map(([, id]) => id)
+  return findAll({ id })
 }
