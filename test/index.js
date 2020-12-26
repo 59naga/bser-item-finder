@@ -314,3 +314,38 @@ it('パン派生で作れるもの一覧を返すべき', () => {
     ['carp bread', ['carp', ['forest', 2], ['cemetery', 2], ['pond', 9]]],
   ])
 })
+
+it('ビルドに必要な素材数を返すべき', () => {
+  const materials = finder.countMaterials(['fragarach', 'laurel wreath', 'blazing dress', 'auto-arms', 'boots of hermes', 'emerald tablet'])
+  deepStrictEqual(materials, [
+    ['tree of life', 6],
+    ['stone', 6],
+    ['lighter', 2],
+    ['hairband', 1],
+    ['branch', 2],
+    ['cloth', 1],
+    ['scissors', 1],
+    ['bandage', 1],
+    ['leather', 1],
+    ['meteorite', 4],
+    ['running shoes', 1],
+    ['iron ball', 1],
+    ['flower', 1],
+    ['playing cards', 1],
+    ['kitchen knife', 1],
+  ])
+})
+// TODO 生命の木のカウントしてない
+it('ルート時点で作成可能な中間武器の表示すべき', () => {
+  const progresses = finder.progressPerAreas(
+    ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
+    ['dock', 'uptown', 'forest', 'beach']
+  )
+  const idOnly = progresses.map((progress) => progress.map((item) => (item ? item.id : null)))
+  deepStrictEqual(idOnly, [
+    [null, null, 'sheath', null, 'magazine', 'twin swords'],
+    [null, 'suit', 'sheath', 'feather boots', 'magazine', 'twin swords'],
+    [null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+    ['motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+  ])
+})

@@ -43,7 +43,10 @@ export class Item {
   }
 
   static getCondition(props, conditions = {}) {
-    let { stats, type, rarity, parents, children, weaponThenOnly } = conditions
+    let { id, stats, type, rarity, parents, children, weaponThenOnly } = conditions
+    if (id instanceof Array && id.indexOf(props.id) === -1) {
+      return false
+    }
     if (typeof stats === 'string') {
       stats = new RegExp(stats)
     }
@@ -218,16 +221,32 @@ export class Item {
     const materials = []
 
     this.children.forEach((child) => {
-      if (child.children && child.children.length) {
+      const notMaterial = child.children && child.children.length
+      if (notMaterial) {
         child.getMaterials().forEach((child) => {
           materials.push(child)
         })
-        return
+      } else {
+        materials.push(child)
       }
-
-      materials.push(child)
     })
 
     return materials
+  }
+
+  getComponents() {
+    const components = []
+
+    this.children.forEach((child) => {
+      const notMaterial = child.children && child.children.length
+      if (notMaterial) {
+        components.push(child)
+        child.getComponents().forEach((child) => {
+          components.push(child)
+        })
+      }
+    })
+
+    return components
   }
 }
