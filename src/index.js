@@ -217,7 +217,7 @@ export function countMaterials(id) {
   return Object.entries(count)
 }
 
-export function progressPerAreas(id, areas) {
+export function progressPerAreas(areas, id) {
   const progresses = []
 
   const items = findAll({ id })

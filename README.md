@@ -20,6 +20,22 @@ console.log(finder.version) // 0.0.0
 API
 ---
 
+### `finder.progressPerAreas(areaNames, itemIds)` => Array<Array<Item>, ...>
+Returns the equipment `Item` (intermediate and complete) that can be created as the route progresses.
+
+```js
+const progresses = finder.progressPerAreas(
+  ['dock', 'uptown', 'forest', 'beach'],
+  ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine']
+)
+// [
+//   [null, null, 'sheath', null, 'magazine', 'twin swords'],
+//   [null, 'suit', 'sheath', 'feather boots', 'magazine', 'twin swords'],
+//   [null, "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+//   ['motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine', 'dioscuri'],
+// ]
+```
+
 ### `finder.find(id)` -> `Item` or `null`
 ### `finder.findById(id)` -> `Item` or `null`
 Return one item that matches the specified `id`.
@@ -118,10 +134,6 @@ finder.find("potato")
 
 ### `finder.findAll(conditions = {}, options = {})` => Array<Item>
 ### `finder.findOne(conditions = {}, options = {})` => Array<Item>
-### `finder.findCreatableAreas(id, withOutMaterials = [])` => [[areaName, [[id, count], [...]]]]
-### `finder.findCreatableHighRarityItems()` => Array<Item>
-### `finder.findParents` => Array<Item>
-### `finder.findChildren` => Array<Item>
 > WIP
 
 TODO

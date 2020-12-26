@@ -338,8 +338,8 @@ it('ビルドに必要な素材数を返すべき', () => {
 // TODO 生命の木のカウントしてない
 it('ルート時点で作成可能な中間武器の表示すべき', () => {
   const progresses = finder.progressPerAreas(
-    ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine'],
-    ['dock', 'uptown', 'forest', 'beach']
+    ['dock', 'uptown', 'forest', 'beach'],
+    ['dioscuri', 'motorcycle helmet', "butler's suit", 'sword of shah jahan', 'feather boots', 'magazine']
   )
   const idOnly = progresses.map((progress) => progress.map((item) => (item ? item.id : null)))
   deepStrictEqual(idOnly, [
