@@ -7,8 +7,7 @@
   "scripts": {
     "hot": "mocha --watch --reporter dot",
     "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
-    "format": "eslint --fix 'src/**/*.js' 'test/**/*.js'",
-    "postversion": "git push && conventional-github-releaser -p atom -t $GITHUB_CGRT"
+    "format": "eslint --fix 'src/**/*.js' 'test/**/*.js'"
   },
   "devDependencies": {
     "eslint": "^7.16.0",

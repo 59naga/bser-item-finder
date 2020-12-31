@@ -485,7 +485,6 @@
   ["sniper crossbow", "crossbow", 4, 0, 1, [], ["laser crossbow", "sniping scope"], "f/f8/Sniper_Crossbow.png", [0, 0, 0, 0, 0, 0, 85, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.5, 0, 0]],
   ["the golden ghost", "crossbow", 4, 0, 1, [], ["power crossbow", "rdx"], "4/41/The_Golden_Ghost.png", [0, 0, 0, 0, 0, 0, 70, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["the legend of the general", "crossbow", 4, 0, 1, [], ["steel crossbow", "oilcloth"], "2/2c/The_Legend_of_the_General.png", [0, 2, 0, 0, 0, 0, 75, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["the legend of the general", "crossbow", 4, 0, 1, [], ["steel crossbow", "oilcloth"], "2/2c/The_Legend_of_the_General.png", [0, 2, 0, 0, 0, 0, 75, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["sharanga", "crossbow", 5, 0, 1, [], ["force core", "crossbow"], "9/91/Sharanga.png", [0, 0, 0, 0, 0, 0, 140, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["cotton glove", "glove", 1, 0, 1, ["leather glove", "gauntlet"], [], "4/41/Cotton_Work_Glove.png", [0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["brass knuckles", "glove", 1, 0, 1, ["iron knuckles"], [], "b/b4/Knuckle.png", [0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
