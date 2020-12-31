@@ -38,7 +38,7 @@ export class Finder extends I18n {
     return new Item(this, foundArray)
   }
 
-  findCharaByName(name) {
+  findCharacterByName(name) {
     const lowered = String(name).toLowerCase()
     const foundArray = this[CHARACTERS].find((array) => {
       const props = Character.getProps(array)
