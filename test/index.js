@@ -6,6 +6,13 @@ describe('Finder', () => {
     assert(finder.version)
   })
 
+  describe('Charas どのキャラのビルドか', () => {
+    it('エマの使用武器を返すべき', () => {
+      const emma = finder.findCharaByName('emma')
+      deepStrictEqual(emma.weapons, ['shuriken'])
+    })
+  })
+
   describe('Weapons ビルドを選択する前にファーストアイテムをピックする', () => {
     it('指定した武器種の情報を返すべき', () => {
       const weapon = finder.findWeaponByType('dual swords')
@@ -37,6 +44,17 @@ describe('Finder', () => {
           'starter guitar',
         ]
       )
+    })
+    it('指定武器種と防具４種を、レアリティ順に並び替えて取得すべき', () => {
+      const items = finder.findItems({
+        where: { equipmentOnly: true, weaponThenOnly: 'dual swords' },
+        order: ['weapon', 'type', 'rarity', 'index'],
+        // TODO winrateやstatsの疑似合計値で並び替えできるようにする
+      })
+      const [weaponId] = items.map((item) => item.id)
+      const [accessoryId] = items.filter((item) => item.type === 'accessory').map((item) => item.id)
+      strictEqual(weaponId, 'dioscuri')
+      strictEqual(accessoryId, 'emerald tablet')
     })
   })
 

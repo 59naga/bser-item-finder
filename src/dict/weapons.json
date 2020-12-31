@@ -17,5 +17,6 @@
   ["glove", "cotton glove", "8/82/WeaponGlove.png"],
   ["tonfa", "bamboo", "b/b0/WeaponTonfa.png"],
   ["nunchaku", "steel chain", "1/1f/WeaponNunchaku.png"],
-  ["guitar", "starter guitar", "4/4e/WeaponGuitar.png"]
+  ["guitar", "starter guitar", "4/4e/WeaponGuitar.png"],
+  ["whip", null, ""]
 ]

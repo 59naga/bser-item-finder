@@ -2,6 +2,10 @@ const imagepPrefixUrl = 'https://static.wikia.nocookie.net/blacksurvivaleternalr
 
 const FINDER = Symbol('FINDER')
 export class FinderClass {
+  static execConditions(array, conditions) {
+    return true
+  }
+  
   constructor(finder) {
     Object.defineProperty(this, FINDER, { value: finder })
   }
@@ -12,9 +16,5 @@ export class FinderClass {
 
   getFinder() {
     return this[FINDER]
-  }
-
-  static execConditions(array, conditions) {
-    return true
   }
 }

@@ -1,5 +1,6 @@
 import { I18n } from './i18n'
 import { Item } from './finderClass/item'
+import { Character } from './finderClass/character'
 import { Weapon } from './finderClass/weapon'
 import { Area } from './finderClass/area'
 import { Animal } from './finderClass/animal'
@@ -9,24 +10,26 @@ import { Inventory } from './finderClass/inventory'
 import { version } from '../package'
 
 const ITEMS = Symbol('ITEMS')
+const CHARACTERS = Symbol('CHARACTERS')
 const WEAPONS = Symbol('WEAPONS')
 const AREAS = Symbol('AREAS')
 const ANIMALS = Symbol('ANIMALS')
 export class Finder extends I18n {
-  constructor(dictItems, dictWeapons, dictAreas, dictAnimals, i18n) {
+  constructor([dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals], i18n) {
     super(i18n)
     Object.defineProperty(this, 'version', { value: version })
     Object.defineProperty(this, ITEMS, { value: dictItems })
+    Object.defineProperty(this, CHARACTERS, { value: dictCharacters })
     Object.defineProperty(this, WEAPONS, { value: dictWeapons })
     Object.defineProperty(this, AREAS, { value: dictAreas })
     Object.defineProperty(this, ANIMALS, { value: dictAnimals })
   }
 
   findById(id) {
-    const idLowered = String(id).toLowerCase()
+    const lowered = String(id).toLowerCase()
     const foundArray = this[ITEMS].find((array) => {
       const props = Item.getProps(array)
-      return props.id === idLowered
+      return props.id === lowered
     })
     if (!foundArray) {
       return null
@@ -35,11 +38,24 @@ export class Finder extends I18n {
     return new Item(this, foundArray)
   }
 
+  findCharaByName(name) {
+    const lowered = String(name).toLowerCase()
+    const foundArray = this[CHARACTERS].find((array) => {
+      const props = Character.getProps(array)
+      return props.name === lowered
+    })
+    if (!foundArray) {
+      return null
+    }
+
+    return new Character(this, foundArray)
+  }
+
   findWeaponByType(type) {
-    const typeLowered = String(type).toLowerCase()
+    const lowered = String(type).toLowerCase()
     const foundArray = this[WEAPONS].find((array) => {
       const props = Weapon.getProps(array)
-      return props.type === typeLowered
+      return props.type === lowered
     })
     if (!foundArray) {
       return null
@@ -49,10 +65,10 @@ export class Finder extends I18n {
   }
 
   findAreaByName(name) {
-    const nameLowered = String(name).toLowerCase()
+    const lowered = String(name).toLowerCase()
     const foundArray = this[AREAS].find((array) => {
       const props = Area.getProps(array)
-      return props.name === nameLowered
+      return props.name === lowered
     })
     if (!foundArray) {
       return null
@@ -65,7 +81,8 @@ export class Finder extends I18n {
     const firstWepapons = []
     this[WEAPONS].forEach((array) => {
       const props = Weapon.getProps(array)
-      if (!props.id) {
+      const isSecretType = !props.id
+      if (isSecretType) {
         return
       }
 
@@ -85,7 +102,7 @@ export class Finder extends I18n {
         .getAnimals()
         .filter((animal) => {
           const item = animal.getItems().find((item) => item.id === id)
-          if (item && item.isWeapon()) {
+          if (item && Item.isWeapon(item.type)) {
             // 武器の直ドロは除外
             return false
           }
@@ -127,35 +144,51 @@ export class Finder extends I18n {
   }
 
   // TODO
-  findWeapons(conditions) {
+  findItems(options = {}) {
+    const found = this[ITEMS].filter((array) => {
+      return Item.execConditions(array, options.where)
+    }).map((array, index) => {
+      const item = new Item(this, array)
+      item.setIndex(index)
+      return item
+    })
+
+    if (options.order) {
+      Item.sort(found, options.order)
+    }
+
+    return found
+  }
+
+  findCharacters(options = {}) {
+    return this[CHARACTERS].filter((array) => {
+      return Character.execConditions(array, options.where)
+    }).map((array) => {
+      return new Character(this, array)
+    })
+  }
+
+  findWeapons(options = {}) {
     return this[WEAPONS].filter((array) => {
-      return Weapon.execConditions(array, conditions)
+      return Weapon.execConditions(array, options.where)
     }).map((array) => {
       return new Weapon(this, array)
     })
   }
 
-  findAreas(conditions) {
+  findAreas(options = {}) {
     return this[AREAS].filter((array) => {
-      return Area.execConditions(array, conditions)
+      return Area.execConditions(array, options.where)
     }).map((array) => {
       return new Area(this, array)
     })
   }
 
-  findAnimals(conditions) {
+  findAnimals(options = {}) {
     return this[ANIMALS].filter((array) => {
-      return Animal.execConditions(array, conditions)
+      return Animal.execConditions(array, options.where)
     }).map((array) => {
       return new Animal(this, array)
-    })
-  }
-
-  findItems(conditions) {
-    return this[ITEMS].filter((array) => {
-      return Item.execConditions(array, conditions)
-    }).map((array) => {
-      return new Item(this, array)
     })
   }
 }

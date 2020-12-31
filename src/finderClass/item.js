@@ -4,7 +4,7 @@ import { FinderClass } from './_finderClass'
 const CHILDREN = Symbol('children')
 const PARENTS = Symbol('parents')
 const STATS = Symbol('stats')
-export class Item extends mixinCountable(mixinCountable(FinderClass), 'Rate') {
+export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderClass), 'Rate'), 'Index') {
   static getProps(itemArray) {
     const props = {}
     const keys = ['id', 'type', 'rarity', 'stackable', 'quantity', 'parents', 'children', 'src', 'stats']
@@ -36,23 +36,66 @@ export class Item extends mixinCountable(mixinCountable(FinderClass), 'Rate') {
     })
   }
 
-  constructor(finder, itemArray) {
-    super(finder)
+  static execConditions(array, conditions) {
+    const { equipmentOnly, type, weaponThenOnly } = conditions
 
-    Object.defineProperty(this, STATS, { value: null, writable: true }) // writable but not visible
-    Object.assign(this, Item.getProps(itemArray))
+    const props = Item.getProps(array)
+    if (equipmentOnly && !Item.isWeapon(props.type) && !Item.isArmor(props.type)) {
+      return false
+    }
+    if (typeof type === 'string' && props.type !== type) {
+      return false
+    }
+    if (typeof weaponThenOnly === 'string' && Item.isWeapon(props.type) && props.type !== weaponThenOnly) {
+      return false
+    }
+
+    return true
   }
 
-  getRarityName() {
-    return ['common', 'uncommon', 'rare', 'epic', 'legendary'][this.rarity - 1]
+  static sort(items, order) {
+    const conditions = order.map((condition) => {
+      // "string" => ["string", "desc"] or ["string", "desc"] => ["string", "desc"]
+      const [key, direc] = typeof condition === 'string' ? [condition, 'desc'] : condition
+      return [key, direc]
+    })
+    items.sort((left, right) => {
+      for (const [key, direc] of conditions) {
+        // インデックス昇順
+        if (key === 'index') {
+          const diffIndex = left.getIndex() - right.getIndex()
+          if (diffIndex !== 0) {
+            return diffIndex
+          }
+        }
+        // 武器を優先表示
+        if (key === 'weapon') {
+          const descWeapon = Item.isWeapon(right.type) - Item.isWeapon(left.type)
+          if (descWeapon !== 0) {
+            return descWeapon
+          }
+        }
+
+        // 特別な並び替え以外は値比較でソート
+        const gt = left[key] > right[key]
+        const lt = left[key] < right[key]
+        if (gt) {
+          return direc === 'desc' ? -1 : 1
+        }
+        if (lt) {
+          return direc === 'desc' ? 1 : -1
+        }
+      }
+      return 0
+    })
   }
 
-  isWeapon() {
+  static isWeapon(type) {
     return (
       [
         'dagger',
         'axe',
-        'two-handed',
+        'two-handed sword',
         'dual swords',
         'pistol',
         'assault rifle',
@@ -69,8 +112,24 @@ export class Item extends mixinCountable(mixinCountable(FinderClass), 'Rate') {
         'tonfa',
         'nunchaku',
         'guitar',
-      ].indexOf(this.type) > -1
+        'whip',
+      ].indexOf(type) > -1
     )
+  }
+
+  static isArmor(type) {
+    return ['head', 'chest', 'arm', 'leg', 'accessory'].indexOf(type) > -1
+  }
+
+  constructor(finder, itemArray) {
+    super(finder)
+
+    Object.defineProperty(this, STATS, { value: null, writable: true }) // writable but not visible
+    Object.assign(this, Item.getProps(itemArray))
+  }
+
+  getRarityName() {
+    return ['common', 'uncommon', 'rare', 'epic', 'legendary'][this.rarity - 1]
   }
 
   getStats() {

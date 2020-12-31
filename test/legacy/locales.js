@@ -1,15 +1,12 @@
 import fs from 'fs'
 
-import dictItems from '../../src/dict/items'
-import dictWeapons from '../../src/dict/weapons'
-import dictAreas from '../../src/dict/areas'
-import dictAnimals from '../../src/dict/animals'
-import { Finder } from '../../src/finder'
-
-const finder = new Finder(dictItems, dictWeapons, dictAreas, dictAnimals)
-
+import finder from '../../src'
 it.skip('convert bs_localization to i18n locale files', () => {
   const keys = []
+  finder.findCharacters().forEach((item) => {
+    console.log(item)
+    keys.push(item.name)
+  })
   finder.findWeapons().forEach((item) => {
     keys.push(item.type)
   })
