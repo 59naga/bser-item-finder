@@ -1,0 +1,21 @@
+[
+  ["dagger", "kitchen knife", "5/5c/WeaponDagger.png"],
+  ["axe", "hatchet", "7/74/WeaponAxe.png"],
+  ["two-handed sword", "rusty sword", "7/7a/WeaponTwoHandedSword.png"],
+  ["dual swords", null, "c/c6/WeaponDualSwords.png"],
+  ["pistol", "walther ppk", "2/27/WeaponPistol.png"],
+  ["assault rifle", "fedorova", "2/23/WeaponAssaultRifle.png"],
+  ["sniper rifle", "long rifle", "2/2c/WeaponSniperRifle.png"],
+  ["rapier", "needle", "b/b0/WeaponRapier.png"],
+  ["spear", "short spear", "8/8b/WeaponSpear.png"],
+  ["hammer", "hammer", "9/94/WeaponHammer.png"],
+  ["bat", "short rod", "0/0b/WeaponBat.png"],
+  ["throw", "baseball", "5/5b/WeaponThrow.png"],
+  ["shuriken", "razor", "6/61/WeaponShuriken.png"],
+  ["bow", "bow", "b/be/WeaponBow.png"],
+  ["crossbow", "short crossbow", "a/a6/WeaponCrossBow.png"],
+  ["glove", "cotton glove", "8/82/WeaponGlove.png"],
+  ["tonfa", "bamboo", "b/b0/WeaponTonfa.png"],
+  ["nunchaku", "steel chain", "1/1f/WeaponNunchaku.png"],
+  ["guitar", "starter guitar", "4/4e/WeaponGuitar.png"]
+]

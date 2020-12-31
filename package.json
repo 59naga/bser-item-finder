@@ -1,0 +1,38 @@
+{
+  "name": "bser-item-finder",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "description": "Eternal Return: Black Survival Item Search Library",
+  "scripts": {
+    "hot": "mocha --watch --reporter dot",
+    "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
+    "format": "eslint --fix 'src/**/*.js' 'test/**/*.js'",
+    "postversion": "git push && conventional-github-releaser -p atom -t $GITHUB_CGRT"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-vue": "^7.3.0",
+    "eslint-plugin-vue-libs": "^4.0.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.2.1",
+    "prettier": "^2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/59naga/bser-item-finder.git"
+  },
+  "author": "59naga",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/59naga/bser-item-finder/issues"
+  },
+  "homepage": "https://github.com/59naga/bser-item-finder#readme"
+}
