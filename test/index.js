@@ -8,7 +8,7 @@ describe('Finder', () => {
 
   describe('Charas どのキャラのビルドか', () => {
     it('エマの使用武器を返すべき', () => {
-      const emma = finder.findCharaByName('emma')
+      const emma = finder.findCharacterByName('emma')
       deepStrictEqual(emma.weapons, ['shuriken'])
     })
   })

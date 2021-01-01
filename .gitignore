@@ -1,5 +1,6 @@
 # in-game data
 test/legacy/bs_localization_*
+test/legacy/statsLocales.json
 
 # morgan log files
 log

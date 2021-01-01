@@ -18,6 +18,35 @@ it.skip('convert bs_localization to i18n locale files', () => {
   finder.findItems().forEach((item) => {
     keys.push(item.id)
   })
+  ;[
+    'hp',
+    'hpRegen',
+    'hpRegenIncrease',
+    'sp',
+    'spRegen',
+    'spRegenIncrease',
+    'attack',
+    'attackSpeed',
+    'attackExtraDamage',
+    'attackRange',
+    'skillDamage',
+    'skillCooldown',
+    'lifeSteal',
+    'criticalDamage',
+    'criticalChance',
+    'defense',
+    'defenseAttack',
+    'defenseSkill',
+    'movementSpeed',
+    'movementSpeedNotCombat',
+    'healingReductionAttack',
+    'healingReductionSkill',
+    'visionRange',
+    'maxAmmo',
+    'trapDamage',
+  ].forEach((key) => {
+    keys.push(key)
+  })
 
   const locales = {
     en: {},
@@ -49,6 +78,13 @@ it.skip('convert bs_localization to i18n locale files', () => {
     locales.en[id] = en
     locales.kr[id] = kr
     locales.ja[id] = ja
+  })
+
+  Object.entries(require('./statsLocales')).forEach(([key, locale]) => {
+    const { en, kr, ja } = locale
+    locales.en[key] = en
+    locales.kr[key] = kr
+    locales.ja[key] = ja
   })
 
   Object.keys(locales).forEach((key) => {

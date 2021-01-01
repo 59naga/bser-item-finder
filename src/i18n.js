@@ -2,6 +2,15 @@ export class I18n {
   constructor(i18n) {
     Object.defineProperty(this, 'locales', { value: i18n })
     Object.defineProperty(this, 'lang', { value: 'en', writable: true })
+
+    const isBrowser = typeof window !== 'undefined' && navigator && navigator.language
+    if (isBrowser) {
+      try {
+        this.setLang(navigator.language)
+      } catch (error) {
+        // ignore "Cannot change..."
+      }
+    }
   }
 
   setLang(value) {
@@ -17,6 +26,7 @@ export class I18n {
   }
 
   __(str) {
-    return this.locales[this.lang][str.toLowerCase()]
+    const lowercased = str.toLowerCase()
+    return this.locales[this.lang][lowercased] || this.locales.en[lowercased] || str
   }
 }
