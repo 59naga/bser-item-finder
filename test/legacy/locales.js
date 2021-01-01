@@ -4,7 +4,6 @@ import finder from '../../src'
 it.skip('convert bs_localization to i18n locale files', () => {
   const keys = []
   finder.findCharacters().forEach((item) => {
-    console.log(item)
     keys.push(item.name)
   })
   finder.findWeapons().forEach((item) => {
@@ -31,7 +30,10 @@ it.skip('convert bs_localization to i18n locale files', () => {
     locales.ja[key] = ''
   })
 
-  const lines = fs.readFileSync('./test/legacy/bs_localization_2055_170143', 'utf8').split('\n')
+  const lines = fs
+    .readFileSync('./test/legacy/bs_localization_2055_170143', 'utf8')
+    .split('\n')
+    .concat(fs.readFileSync('./test/legacy/bs_localization_2048_150526', 'utf8').split('\n'))
   lines.forEach((line) => {
     const cells = line.split('┃')
     const [, kr, en, ja] = cells

@@ -36,7 +36,7 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
     })
   }
 
-  static execConditions(array, conditions) {
+  static execConditions(array, conditions = {}) {
     const { equipmentOnly, type, weaponThenOnly } = conditions
 
     const props = Item.getProps(array)
