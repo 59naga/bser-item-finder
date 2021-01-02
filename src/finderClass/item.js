@@ -79,6 +79,15 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
           }
         }
 
+        // アイテム種を優先表示
+        if (key === 'type') {
+          const armorIndexes = ['head', 'chest', 'arm', 'leg', 'accessory']
+          const ascType = armorIndexes.indexOf(left.type) - armorIndexes.indexOf(right.type)
+          if (ascType !== 0) {
+            return ascType
+          }
+        }
+
         // 特別な並び替え以外は値比較でソート
         const gt = left[key] > right[key]
         const lt = left[key] < right[key]

@@ -1,6 +1,7 @@
 export class I18n {
   constructor(i18n) {
-    Object.defineProperty(this, 'locales', { value: i18n })
+    const value = JSON.parse(JSON.stringify(i18n)) // Fix: Avoid changing argument properties directly
+    Object.defineProperty(this, 'locales', { value })
     Object.defineProperty(this, 'lang', { value: 'en', writable: true })
 
     const isBrowser = typeof window !== 'undefined' && navigator && navigator.language
@@ -25,7 +26,20 @@ export class I18n {
     return this.lang
   }
 
-  __(str) {
-    return this.locales[this.lang][str] || this.locales.en[str] || str
+  setLocales(locales) {
+    Object.entries(locales).forEach(([lang, defines]) => {
+      if (!this.locales[lang]) {
+        this.locales[lang] = {}
+      }
+      Object.entries(defines).forEach(([key, value]) => {
+        this.locales[lang][key] = value
+      })
+    })
+  }
+
+  __(str, lang) {
+    const chosenLang = lang || this.lang
+    const chosenLocale = this.locales[chosenLang] || {}
+    return chosenLocale[str] || this.locales.en[str] || str
   }
 }

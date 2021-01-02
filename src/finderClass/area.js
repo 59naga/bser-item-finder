@@ -29,7 +29,7 @@ export class Area extends FinderClass {
       animal
         .getItems()
         .filter((item) => item.getRate() >= gteRate || includeAlways.indexOf(item.id) > -1)
-        .forEach((item) => items.push([item.id, animal.getCount(), item.getRate()]))
+        .forEach((item) => items.push([item.id, animal.getCount(), item.getRate(), animal.name]))
     })
 
     return items

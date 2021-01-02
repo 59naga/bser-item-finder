@@ -15,8 +15,13 @@ const WEAPONS = Symbol('WEAPONS')
 const AREAS = Symbol('AREAS')
 const ANIMALS = Symbol('ANIMALS')
 export class Finder extends I18n {
-  constructor([dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals], i18n) {
+  constructor(dictJsons, i18n) {
     super(i18n)
+
+    const [dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals] = dictJsons.map((obj) => {
+      // Fix: Avoid changing argument properties directly
+      return JSON.parse(JSON.stringify(obj))
+    })
     Object.defineProperty(this, 'version', { value: version })
     Object.defineProperty(this, ITEMS, { value: dictItems })
     Object.defineProperty(this, CHARACTERS, { value: dictCharacters })

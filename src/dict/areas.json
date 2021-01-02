@@ -64,7 +64,7 @@
     [
       ["chicken", 5],
       ["bear", 2],
-      ["dog", 3]
+      ["wild dog", 3]
     ]
   ],
   [
@@ -98,7 +98,7 @@
       ["coffee", 5]
     ],
     [
-      ["dog", 3],
+      ["wild dog", 3],
       ["bear", 3],
       ["chicken", 4]
     ]
@@ -134,7 +134,7 @@
     [
       ["chicken", 3],
       ["wolf", 4],
-      ["dog", 4]
+      ["wild dog", 4]
     ]
   ],
   [
@@ -200,7 +200,7 @@
       ["bread", 6]
     ],
     [
-      ["dog", 4],
+      ["wild dog", 4],
       ["chicken", 6],
       ["bat", 4]
     ]
@@ -335,7 +335,7 @@
     ],
     [
       ["wolf", 4],
-      ["dog", 4],
+      ["wild dog", 4],
       ["chicken", 3]
     ]
   ],
@@ -401,7 +401,7 @@
       ["surveillance camera", 6]
     ],
     [
-      ["dog", 4],
+      ["wild dog", 4],
       ["boar", 6],
       ["chicken", 5]
     ]
@@ -469,7 +469,7 @@
     ],
     [
       ["wolf", 4],
-      ["dog", 3],
+      ["wild dog", 3],
       ["chicken", 3]
     ]
   ],

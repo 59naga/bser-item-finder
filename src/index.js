@@ -8,4 +8,7 @@ import kr from './locales/kr'
 import ja from './locales/ja'
 import { Finder } from './finder'
 
-export default new Finder([dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals], { en, kr, ja })
+export default createFinder()
+export function createFinder() {
+  return new Finder([dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals], { en, kr, ja })
+}

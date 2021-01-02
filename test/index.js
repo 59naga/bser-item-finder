@@ -1,6 +1,10 @@
 import assert, { strictEqual, deepStrictEqual, throws } from 'assert'
 
-import finder from '../src'
+import { createFinder } from '../src'
+let finder
+before(() => {
+  finder = createFinder()
+})
 describe('Finder', () => {
   it('バージョン情報を返すべき', () => {
     assert(finder.version)
@@ -56,10 +60,17 @@ describe('Finder', () => {
       strictEqual(weaponId, 'dioscuri')
       strictEqual(accessoryId, 'emerald tablet')
     })
+    it.skip('エルメスの靴のスタッツバリューを計算すべき', () => {
+      const item = finder.findById('boots of hermes')
+      console.log(item.getItemValue())
+    })
   })
 
   describe('Item 選択したアイテムについて、適切な情報を返すべき', () => {
-    const fragarach = finder.findById('Fragarach')
+    let fragarach
+    before(() => {
+      fragarach = finder.findById('Fragarach')
+    })
     it('.getStats フラガラッハの性能を返すべき', () => {
       deepStrictEqual(fragarach.getStats(), { attack: 75, movementSpeed: 0.2 })
     })
@@ -363,7 +374,10 @@ describe('Finder', () => {
   })
 
   describe('Build 選択したアイテム郡をビルドとする', () => {
-    const build = finder.createBuild()
+    let build
+    before(() => {
+      build = finder.createBuild()
+    })
     it('.addItem ビルドにアイテムを追加する', () => {
       build.addItem('Fragarach')
       deepStrictEqual(
@@ -404,7 +418,7 @@ describe('Finder', () => {
       const build = finder.createBuild(['motorcycle helmet', "rocker's jacket"], ['beach', 'hotel'])
       const progresses = build.getProgresses(['kitchen knife', ['bread', 2], ['water', 2]])
 
-      const itemPerAreas = progresses.map((progress) => progress.map((item) => (item ? item.id : item)))
+      const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
       deepStrictEqual(itemPerAreas, [
         ['motorcycle helmet', null],
         ['motorcycle helmet', 'rider jacket'],
@@ -416,7 +430,23 @@ describe('Finder', () => {
         ['beach', 'uptown', 'dock', 'hotel', 'archery range']
       )
       const progresses = build.getProgresses(['kitchen knife', ['bread', 2], ['water', 2]])
-      const itemPerAreas = progresses.map((progress) => progress.map((item) => (item ? item.id : item)))
+      const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
+      deepStrictEqual(itemPerAreas, [
+        ['army knife', null, null, null, null, null],
+        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
+        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
+        // FIXME: should be count for actual number of materials
+        ['fragarach', null, null, 'bracelet of skadi', 'running shoes', 'emerald tablet'],
+        ['fragarach', null, 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
+      ])
+    })
+    it('.calcTotalStats 選択した装備の合計スタッツを返すべき', () => {
+      const build = finder.createBuild(
+        ['fragarach', 'laurel wreath', 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
+        ['beach', 'uptown', 'dock', 'hotel', 'archery range']
+      )
+      const progresses = build.getProgresses(['kitchen knife', ['bread', 2], ['water', 2]])
+      const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
       deepStrictEqual(itemPerAreas, [
         ['army knife', null, null, null, null, null],
         ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
@@ -430,11 +460,38 @@ describe('Finder', () => {
 })
 
 describe('I18n', () => {
+  let finder
+  before(() => {
+    finder = createFinder()
+    finder.setLang('ja')
+  })
+
   it('.setLang expect throw when set unavailable languages', () => {
     throws(() => finder.setLang('アルベド語'), { message: /Cannot change language/ })
   })
   it('.__ expect translate beach to ja from en', () => {
-    finder.setLang('ja')
     strictEqual(finder.__('beach'), '浜辺')
+  })
+  it('.setLocales expect be set translation', () => {
+    finder.setLocales({
+      en: {
+        build: 'Build',
+      },
+      kr: {
+        build: '짓다',
+      },
+      ja: {
+        build: 'ビルド',
+      },
+    })
+
+    strictEqual(finder.__('build', 'アルベド語'), 'Build')
+    strictEqual(finder.__('build', 'kr'), '짓다')
+    strictEqual(finder.__('build'), 'ビルド')
+
+    finder.setLocales({
+      ja: { beach: '海の家' },
+    })
+    strictEqual(finder.__('beach'), '海の家')
   })
 })
