@@ -225,7 +225,7 @@
   ["blazing dress", "chest", 5, 0, 1, [], ["true samadhi fire", "dress"], "f/f9/Blazing_Dress.png", [0, 2.5, 0, 0, 3, 75, 0, 0, 18, 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["kabana", "chest", 5, 0, 1, [], ["meteorite", "commander's armor"], "0/08/Kabana.png", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["queen of hearts", "chest", 5, 0, 1, [], ["vf blood sample", "hanbok"], "d/da/Queen_of_Hearts.png", [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["radar", "chest", 5, 0, 1, [], ["vital sign sensor", "glass panel"], "4/46/Radar.png", [0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 20, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["radar", "arm", 5, 0, 1, [], ["vital sign sensor", "glass panel"], "4/46/Radar.png", [0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 20, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["bandage", "arm", 1, 0, 1, ["patched robe", "squad leader armband", "bracer", "first aid kit", "oilcloth"], [], "0/0c/Bandage.png", [0, 0.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["bracelet", "arm", 1, 0, 1, ["golden bracelet", "crimson bracelet"], [], "3/33/Bracelet.png", [0, 0, 0, 220, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["watch", "arm", 1, 0, 1, ["vital sign sensor", "cube watch"], [], "9/93/Watch.png", [0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],

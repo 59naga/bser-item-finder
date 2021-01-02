@@ -19,7 +19,7 @@ export class Area extends FinderClass {
     Object.assign(this, Area.getProps(array))
   }
 
-  getCountAndRate(gteRate = 0.3, includeAlways = ['meteorite']) {
+  getCountAndRate(gteRate = 0.3, includeAlways = ['meteorite', 'mithril']) {
     const items = []
 
     this.getItems()

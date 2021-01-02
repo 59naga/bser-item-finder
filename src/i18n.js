@@ -26,7 +26,6 @@ export class I18n {
   }
 
   __(str) {
-    const lowercased = str.toLowerCase()
-    return this.locales[this.lang][lowercased] || this.locales.en[lowercased] || str
+    return this.locales[this.lang][str] || this.locales.en[str] || str
   }
 }

@@ -37,13 +37,16 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
   }
 
   static execConditions(array, conditions = {}) {
-    const { equipmentOnly, type, weaponThenOnly } = conditions
+    const { equipmentOnly, type, typeExclude, weaponThenOnly } = conditions
 
     const props = Item.getProps(array)
     if (equipmentOnly && !Item.isWeapon(props.type) && !Item.isArmor(props.type)) {
       return false
     }
     if (typeof type === 'string' && props.type !== type) {
+      return false
+    }
+    if (typeof typeExclude === 'object' && typeExclude.indexOf(props.type) > -1) {
       return false
     }
     if (typeof weaponThenOnly === 'string' && Item.isWeapon(props.type) && props.type !== weaponThenOnly) {
@@ -117,8 +120,16 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
     )
   }
 
+  isWeapon() {
+    return Item.isWeapon(this.type)
+  }
+
   static isArmor(type) {
     return ['head', 'chest', 'arm', 'leg', 'accessory'].indexOf(type) > -1
+  }
+
+  isArmor() {
+    return Item.isArmor(this.type)
   }
 
   constructor(finder, itemArray) {
@@ -163,7 +174,7 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
     const stats = {}
     statKeys.forEach((key, index) => {
       const value = this[STATS][index]
-      if (value > 0) {
+      if (value !== 0) {
         stats[key] = value
       }
     })

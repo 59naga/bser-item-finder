@@ -11,9 +11,6 @@ export class Build extends FinderClass {
   addItem(id) {
     const value = this.items || []
     value.push(this.getFinder().findById(id))
-    if (value.length > 6) {
-      value.length = 6
-    }
     Object.defineProperty(this, 'items', { value, writable: true })
   }
 
@@ -67,12 +64,12 @@ export class Build extends FinderClass {
   getProgresses(inventoryArray = []) {
     const progresses = []
 
-    const areas = this.getAreas().map((area) => area.name)
-    const areaItems = areas.map((name) => this.getFinder().findAreaByName(name).getCountAndRate())
+    const areas = this.getAreas()
+    const areaItems = areas.map((area) => this.getFinder().findAreaByName(area.name).getCountAndRate())
     for (let progress = 0; progress < areas.length; progress++) {
       const currentItems = areaItems.slice(0, progress + 1)
       const progressEquipments = this.getItems().map((item) => item.getProgressEquipment(currentItems, inventoryArray))
-      progresses.push(progressEquipments)
+      progresses.push([areas[progress], progressEquipments])
     }
 
     return progresses
