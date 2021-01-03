@@ -1,10 +1,11 @@
 import mixinCountable from '../mixins/countable'
+import mixinWritable from '../mixins/writable'
 import { FinderClass } from './_finderClass'
 
 const CHILDREN = Symbol('children')
 const PARENTS = Symbol('parents')
 const STATS = Symbol('stats')
-export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderClass), 'Rate'), 'Index') {
+export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'Rate', 'Index']), ['Owner']) {
   static getStatsKeys() {
     return [
       'hp',
@@ -34,6 +35,7 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
       'trapDamage',
     ]
   }
+
   static getProps(itemArray) {
     const props = {}
     const keys = ['id', 'type', 'rarity', 'stackable', 'quantity', 'parents', 'children', 'src', 'stats']
@@ -283,21 +285,20 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
 
     const countDefault = []
     inventory.forEach((idOrArray) => {
-      if (typeof idOrArray === 'string') {
-        countDefault.push([idOrArray, 1])
-      } else {
-        countDefault.push(idOrArray)
-      }
+      const [id, count] = typeof idOrArray === 'string' ? [idOrArray, 1] : idOrArray
+      const item = this.getFinder().findById(id)
+      item.setCount(count)
+      countDefault.push(item)
     })
     const availableItems = areaItems.reduce((left, right) => left.concat(right), countDefault)
 
     const equipment = families.find((family) => {
       const componentIds = family.getComponents().map((item) => item.id)
       if (!componentIds.length) {
-        const isInstantEquipment = availableItems.find(([areaItemId]) => areaItemId === family.id)
+        const isInstantEquipment = availableItems.find((areaItem) => areaItem.id === family.id)
         return isInstantEquipment
       }
-      const obtainableIds = componentIds.filter((id) => availableItems.find(([areaItemId]) => areaItemId === id))
+      const obtainableIds = componentIds.filter((id) => availableItems.find((areaItem) => areaItem.id === id))
       return componentIds.length === obtainableIds.length
     })
 

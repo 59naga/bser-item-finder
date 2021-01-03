@@ -24,12 +24,16 @@ export class Area extends FinderClass {
 
     this.getItems()
       .filter((item) => item.getCount())
-      .forEach((item) => items.push([item.id, item.getCount()]))
+      .forEach((item) => items.push(item))
     this.getAnimals().forEach((animal) => {
       animal
         .getItems()
         .filter((item) => item.getRate() >= gteRate || includeAlways.indexOf(item.id) > -1)
-        .forEach((item) => items.push([item.id, animal.getCount(), item.getRate(), animal.name]))
+        .forEach((item) => {
+          item.setCount(animal.getCount())
+          item.setOwner(animal.name)
+          items.push(item)
+        })
     })
 
     return items
