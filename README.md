@@ -1,6 +1,5 @@
 Eternal Return: Black Survival Item Finder
 ---
-An *unofficial* synchronous item search library using information from [gamepedia](https://eternalreturn.gamepedia.com/).
 
 <p align="right">
   <a href="https://npmjs.org/package/bser-item-finder">
@@ -10,6 +9,8 @@ An *unofficial* synchronous item search library using information from [gamepedi
     <img src="https://api.codeclimate.com/v1/badges/3ca8c3b81941d456f10a/maintainability" />
   </a>
 </p>
+
+An *unofficial* synchronous item search library using information from [gamepedia](https://eternalreturn.gamepedia.com/).
 
 Installation
 ---
