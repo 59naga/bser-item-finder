@@ -60,10 +60,6 @@ describe('Finder', () => {
       strictEqual(weaponId, 'dioscuri')
       strictEqual(accessoryId, 'emerald tablet')
     })
-    it.skip('エルメスの靴のスタッツバリューを計算すべき', () => {
-      const item = finder.findById('boots of hermes')
-      console.log(item.getItemValue())
-    })
   })
 
   describe('Item 選択したアイテムについて、適切な情報を返すべき', () => {
@@ -445,16 +441,21 @@ describe('Finder', () => {
         ['fragarach', 'laurel wreath', 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
         ['beach', 'uptown', 'dock', 'hotel', 'archery range']
       )
-      const progresses = build.getProgresses(['kitchen knife', ['bread', 2], ['water', 2]])
-      const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
-      deepStrictEqual(itemPerAreas, [
-        ['army knife', null, null, null, null, null],
-        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
-        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
-        // FIXME: should be count for actual number of materials
-        ['fragarach', null, null, 'bracelet of skadi', 'running shoes', 'emerald tablet'],
-        ['fragarach', null, 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
-      ])
+      const total = build.calcTotalStats()
+      deepStrictEqual(total, {
+        hp: 200,
+        hpRegen: 3.5,
+        sp: 830,
+        spRegen: 4,
+        attack: 85,
+        attackExtraDamage: 15,
+        skillDamage: 38,
+        skillCooldown: 10,
+        criticalChance: 15,
+        defense: 104,
+        movementSpeed: 0.6,
+        movementSpeedNotCombat: 0.2,
+      })
     })
   })
 })

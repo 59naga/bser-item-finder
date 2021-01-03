@@ -1,4 +1,5 @@
 import { FinderClass } from './_finderClass'
+import { Item } from './item'
 
 export class Build extends FinderClass {
   constructor(finder, items = [], areas = []) {
@@ -73,5 +74,36 @@ export class Build extends FinderClass {
     }
 
     return progresses
+  }
+
+  calcTotalStats() {
+    const stats = {}
+    const healingReductions = []
+    Item.getStatsKeys().forEach((key) => {
+      stats[key] = 0
+    })
+
+    this.getItems()
+      .filter((item) => item.isWeapon() || item.isArmor())
+      .forEach((item) => {
+        Object.entries(item.getStats()).forEach(([key, value]) => {
+          if (key.indexOf('healingReduction') === 0) {
+            healingReductions.push({ [key]: value })
+            return
+          }
+          stats[key] += value * 100
+        })
+      })
+
+    // HACK: fix javascript floating point math bug(eg: 0.01 + 0.05 = 0.060000000000000005)
+    Object.entries(stats).forEach(([key, value]) => {
+      if (value === 0) {
+        delete stats[key]
+        return
+      }
+      stats[key] = value / 100
+    })
+
+    return [stats, healingReductions]
   }
 }

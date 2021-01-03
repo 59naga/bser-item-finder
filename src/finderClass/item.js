@@ -5,6 +5,35 @@ const CHILDREN = Symbol('children')
 const PARENTS = Symbol('parents')
 const STATS = Symbol('stats')
 export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderClass), 'Rate'), 'Index') {
+  static getStatsKeys() {
+    return [
+      'hp',
+      'hpRegen',
+      'hpRegenIncrease',
+      'sp',
+      'spRegen',
+      'spRegenIncrease',
+      'attack',
+      'attackSpeed',
+      'attackExtraDamage',
+      'attackRange',
+      'skillDamage',
+      'skillCooldown',
+      'lifeSteal',
+      'criticalDamage',
+      'criticalChance',
+      'defense',
+      'defenseAttack',
+      'defenseSkill',
+      'movementSpeed',
+      'movementSpeedNotCombat',
+      'healingReductionAttack',
+      'healingReductionSkill',
+      'visionRange',
+      'maxAmmo',
+      'trapDamage',
+    ]
+  }
   static getProps(itemArray) {
     const props = {}
     const keys = ['id', 'type', 'rarity', 'stackable', 'quantity', 'parents', 'children', 'src', 'stats']
@@ -153,35 +182,8 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
   }
 
   getStats() {
-    const statKeys = [
-      'hp',
-      'hpRegen',
-      'hpRegenIncrease',
-      'sp',
-      'spRegen',
-      'spRegenIncrease',
-      'attack',
-      'attackSpeed',
-      'attackExtraDamage',
-      'attackRange',
-      'skillDamage',
-      'skillCooldown',
-      'lifeSteal',
-      'criticalDamage',
-      'criticalChance',
-      'defense',
-      'defenseAttack',
-      'defenseSkill',
-      'movementSpeed',
-      'movementSpeedNotCombat',
-      'healingReductionAttack',
-      'healingReductionSkill',
-      'visionRange',
-      'maxAmmo',
-      'trapDamage',
-    ]
     const stats = {}
-    statKeys.forEach((key, index) => {
+    Item.getStatsKeys().forEach((key, index) => {
       const value = this[STATS][index]
       if (value !== 0) {
         stats[key] = value
