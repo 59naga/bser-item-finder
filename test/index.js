@@ -82,99 +82,6 @@ describe('Finder', () => {
         ['army knife', 'force core', 'powder of life']
       )
     })
-    it('.getComponentOrigins フラガラッハを制作するための素材が存在するエリア、およびその個数を返すべき', () => {
-      const origins = fragarach.getComponentOrigins('kitchen knife')
-      deepStrictEqual(origins, {
-        beach: [
-          { id: 'branch', count: 5, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 3 }] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'bear', rate: 0.06, count: 3 }] },
-        ],
-        uptown: [
-          { id: 'branch', count: 6, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 2 }] },
-          { id: 'stone', count: 5, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'bear', rate: 0.06, count: 2 }] },
-        ],
-        dock: [
-          { id: 'branch', count: 7, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 3 }] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'bear', rate: 0.06, count: 3 }] },
-        ],
-        hotel: [
-          { id: 'branch', count: 5, animals: [] },
-          { id: 'tree of life', count: 1, animals: [] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 4 }] },
-        ],
-        'archery range': [
-          { id: 'branch', count: 4, animals: [] },
-          { id: 'stone', count: 2, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 4 }] },
-        ],
-        school: [
-          { id: 'branch', count: 6, animals: [] },
-          { id: 'stone', count: 5, animals: [] },
-        ],
-        forest: [
-          { id: 'branch', count: 13, animals: [] },
-          { id: 'tree of life', count: 1, animals: [] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 2 }] },
-        ],
-        chapel: [
-          { id: 'branch', count: 5, animals: [] },
-          { id: 'stone', count: 2, animals: [] },
-        ],
-        cemetery: [
-          { id: 'branch', count: 6, animals: [] },
-          { id: 'tree of life', count: 1, animals: [] },
-          { id: 'stone', count: 2, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 2 }] },
-        ],
-        factory: [
-          { id: 'branch', count: 7, animals: [] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 4 }] },
-        ],
-        alley: [
-          { id: 'branch', count: 5, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 3 }] },
-          { id: 'stone', count: 3, animals: [] },
-          {
-            id: 'meteorite',
-            count: 0,
-            animals: [
-              { name: 'wolf', rate: 0.053, count: 4 },
-              { name: 'bear', rate: 0.06, count: 3 },
-            ],
-          },
-        ],
-        avenue: [
-          { id: 'branch', count: 4, animals: [] },
-          { id: 'stone', count: 1, animals: [] },
-        ],
-        pond: [
-          { id: 'branch', count: 6, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 2 }] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'bear', rate: 0.06, count: 2 }] },
-        ],
-        hospital: [
-          { id: 'branch', count: 4, animals: [] },
-          { id: 'stone', count: 2, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'wolf', rate: 0.053, count: 4 }] },
-        ],
-        temple: [
-          { id: 'branch', count: 5, animals: [] },
-          { id: 'tree of life', count: 0, animals: [{ name: 'bear', rate: 0.02, count: 2 }] },
-          { id: 'stone', count: 3, animals: [] },
-          { id: 'meteorite', count: 0, animals: [{ name: 'bear', rate: 0.06, count: 2 }] },
-        ],
-      })
-    })
     it('.getTree / ::traverseTreeItems アイテムツリーを返すべき', () => {
       const tree = fragarach.getTree()
       const Item = fragarach.constructor
@@ -199,173 +106,6 @@ describe('Finder', () => {
         'wooden bow',
         'mistilteinn',
       ])
-    })
-
-    describe('.misc 上記仕様を実現するためのユーティリティ関数群', () => {
-      describe('.countPerAreas エリアごとの、素材の在庫、関連する動物の頭数とドロップ率を返すべき', () => {
-        it('枝の個数', () => {
-          const areas = finder.countPerAreas('branch')
-          deepStrictEqual(areas, [
-            { name: 'beach', count: 5, animals: [] },
-            { name: 'uptown', count: 6, animals: [] },
-            { name: 'dock', count: 7, animals: [] },
-            { name: 'hotel', count: 5, animals: [] },
-            { name: 'archery range', count: 4, animals: [] },
-            { name: 'school', count: 6, animals: [] },
-            { name: 'forest', count: 13, animals: [] },
-            { name: 'chapel', count: 5, animals: [] },
-            { name: 'cemetery', count: 6, animals: [] },
-            { name: 'factory', count: 7, animals: [] },
-            { name: 'alley', count: 5, animals: [] },
-            { name: 'avenue', count: 4, animals: [] },
-            { name: 'pond', count: 6, animals: [] },
-            { name: 'hospital', count: 4, animals: [] },
-            { name: 'temple', count: 5, animals: [] },
-          ])
-        })
-        it('隕石の個数', () => {
-          const areas = finder.countPerAreas('meteorite')
-          deepStrictEqual(areas, [
-            {
-              name: 'beach',
-              count: 0,
-              animals: [
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 3,
-                },
-              ],
-            },
-            {
-              name: 'uptown',
-              count: 0,
-              animals: [
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 2,
-                },
-              ],
-            },
-            {
-              name: 'dock',
-              count: 0,
-              animals: [
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 3,
-                },
-              ],
-            },
-            {
-              name: 'hotel',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 4,
-                },
-              ],
-            },
-            {
-              name: 'archery range',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 4,
-                },
-              ],
-            },
-            {
-              name: 'forest',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 2,
-                },
-              ],
-            },
-            {
-              name: 'cemetery',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 2,
-                },
-              ],
-            },
-            {
-              name: 'factory',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 4,
-                },
-              ],
-            },
-            {
-              name: 'alley',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 4,
-                },
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 3,
-                },
-              ],
-            },
-            {
-              name: 'pond',
-              count: 0,
-              animals: [
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 2,
-                },
-              ],
-            },
-            {
-              name: 'hospital',
-              count: 0,
-              animals: [
-                {
-                  name: 'wolf',
-                  rate: 0.053,
-                  count: 4,
-                },
-              ],
-            },
-            {
-              name: 'temple',
-              count: 0,
-              animals: [
-                {
-                  name: 'bear',
-                  rate: 0.06,
-                  count: 2,
-                },
-              ],
-            },
-          ])
-        })
-      })
     })
   })
 
@@ -437,25 +177,21 @@ describe('Finder', () => {
       ])
     })
     it('.calcTotalStats 選択した装備の合計スタッツを返すべき', () => {
-      const build = finder.createBuild(
-        ['fragarach', 'laurel wreath', 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
-        ['beach', 'uptown', 'dock', 'hotel', 'archery range']
-      )
+      const build = finder.createBuild(["rocker's jacket", 'sword stopper', 'white rhinos', 'white crane fan'])
       const total = build.calcTotalStats()
-      deepStrictEqual(total, {
-        hp: 200,
-        hpRegen: 3.5,
-        sp: 830,
-        spRegen: 4,
-        attack: 85,
-        attackExtraDamage: 15,
-        skillDamage: 38,
-        skillCooldown: 10,
-        criticalChance: 15,
-        defense: 104,
-        movementSpeed: 0.6,
-        movementSpeedNotCombat: 0.2,
-      })
+      deepStrictEqual(total, [
+        {
+          hpRegen: 0.7,
+          attack: 30,
+          attackSpeed: 15,
+          skillDamage: 16,
+          defense: 37,
+          defenseAttack: 26,
+          movementSpeed: 0.45,
+          movementSpeedNotCombat: 0.2,
+        },
+        [{ healingReductionSkill: 40 }, { healingReductionAttack: 40 }, { healingReductionAttack: 40 }, { healingReductionSkill: 40 }],
+      ])
     })
   })
 })

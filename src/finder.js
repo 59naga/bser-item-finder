@@ -96,40 +96,6 @@ export class Finder extends I18n {
     return firstWepapons
   }
 
-  countPerAreas(id) {
-    const areas = []
-
-    this[AREAS].forEach((array) => {
-      const area = new Area(this, array)
-      const item = area.getItems().find((item) => item.id === id)
-      const count = item ? item.getCount() : 0
-      const animals = area
-        .getAnimals()
-        .filter((animal) => {
-          const item = animal.getItems().find((item) => item.id === id)
-          if (item && Item.isWeapon(item.type)) {
-            // 武器の直ドロは除外
-            return false
-          }
-          return !!item
-        })
-        .map((animal) => {
-          const item = animal.getItems().find((item) => item.id === id)
-          const name = animal.name
-          const rate = item.getRate()
-          const count = animal.getCount()
-          return { name, rate, count }
-        })
-
-      if (count > 0 || animals.length) {
-        const { name } = area
-        areas.push({ name, count, animals })
-      }
-    })
-
-    return areas
-  }
-
   findAnimal(name) {
     const nameLowered = String(name).toLowerCase()
     const foundArray = this[ANIMALS].find((weaponArray) => {

@@ -271,29 +271,6 @@ export class Item extends mixinCountable(mixinCountable(mixinCountable(FinderCla
     return this[CHILDREN]
   }
 
-  getComponentOrigins(excludeId) {
-    const componentOrigins = {}
-
-    this.getComponents().forEach((component) => {
-      const { id } = component
-      if (id === excludeId) {
-        return
-      }
-      this.getFinder()
-        .countPerAreas(id)
-        .forEach((area) => {
-          const { name, count, animals } = area
-          if (!componentOrigins[name]) {
-            componentOrigins[name] = []
-          }
-
-          componentOrigins[name].push({ id, count, animals })
-        })
-    })
-
-    return componentOrigins
-  }
-
   getProgressEquipment(areaItems, inventory = []) {
     const families = [this]
     const tree = this.getTree()
