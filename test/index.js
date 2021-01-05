@@ -60,6 +60,22 @@ describe('Finder', () => {
       strictEqual(weaponId, 'dioscuri')
       strictEqual(accessoryId, 'emerald tablet')
     })
+
+    it('移動速度を持つ装備で絞り込むべき', () => {
+      const items = finder.findItems({
+        where: { stats: ['movementSpeed', 'movementSpeedNotCombat'] },
+        order: ['weapon', 'type', 'rarity', 'index'],
+      })
+      const [first, ...others] = items.map((item) => [item.id, item.getStats()])
+      const last = others[others.length - 1]
+      deepStrictEqual(
+        [first, last],
+        [
+          ['bastard sword', { attack: 45, movementSpeed: -0.1 }],
+          ['feather', { movementSpeed: 0.08 }],
+        ]
+      )
+    })
   })
 
   describe('Item 選択したアイテムについて、適切な情報を返すべき', () => {

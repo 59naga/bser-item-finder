@@ -36,6 +36,17 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
     ]
   }
 
+  static getStats(props) {
+    const stats = {}
+    Item.getStatsKeys().forEach((key, index) => {
+      const value = props[STATS][index]
+      if (value !== 0) {
+        stats[key] = value
+      }
+    })
+    return stats
+  }
+
   static getProps(itemArray) {
     const props = {}
     const keys = ['id', 'type', 'rarity', 'stackable', 'quantity', 'parents', 'children', 'src', 'stats']
@@ -68,9 +79,10 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
   }
 
   static execConditions(array, conditions = {}) {
-    const { equipmentOnly, type, typeExclude, weaponThenOnly } = conditions
+    const { equipmentOnly, type, typeExclude, weaponThenOnly, stats } = conditions
 
     const props = Item.getProps(array)
+    const statsValues = Item.getStats(props)
     if (equipmentOnly && !Item.isWeapon(props.type) && !Item.isArmor(props.type)) {
       return false
     }
@@ -81,6 +93,9 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
       return false
     }
     if (typeof weaponThenOnly === 'string' && Item.isWeapon(props.type) && props.type !== weaponThenOnly) {
+      return false
+    }
+    if (typeof stats === 'object' && !stats.find((statsKey) => statsValues[statsKey] != null && statsValues[statsKey] !== 0)) {
       return false
     }
 
@@ -184,14 +199,7 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
   }
 
   getStats() {
-    const stats = {}
-    Item.getStatsKeys().forEach((key, index) => {
-      const value = this[STATS][index]
-      if (value !== 0) {
-        stats[key] = value
-      }
-    })
-    return stats
+    return Item.getStats(this)
   }
 
   getParents() {
