@@ -527,13 +527,13 @@
   ["sharper", "nunchaku", 3, 0, 1, ["the smiting dragon"], ["nunchaku", "nail"], "3/36/Sharper.png", [0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0]],
   ["the smiting dragon", "nunchaku", 4, 0, 1, [], ["sharper", "ash"], "3/38/The_Smiting_Dragon.png", [0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0]],
   ["vibro nunchaku", "nunchaku", 4, 0, 1, [], ["bleeder", "motor"], "2/2a/Vibro_Nunchaku.png", [0, 0, 0, 0, 0, 0, 65, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["whip", "whip", 1, 0, 1, ["rope cuffs", "bullwhip"], [], "7/71/Whip.png", [0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["bullwhip", "whip", 2, 0, 1, ["thunder whip", "lightning whip"], ["whip", "razor"], "4/44/Bullwhip.png", [0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["rope cuffs", "whip", 2, 0, 1, ["wind whip"], ["whip", "stallion medal"], "c/c8/Rope_Cuffs.png", [0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["lightning whip", "whip", 3, 0, 1, ["plasma whip"], ["bullwhip", "dead battery"], "6/64/Lightning_Whip.png", [0, 0, 0, 0, 0, 0, 41, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["thunder whip", "whip", 3, 0, 1, [], ["bullwhip", "gold"], "0/07/Thunder_Whip.png", [0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["wind whip", "whip", 3, 0, 1, ["gleipnir", "whip of nine bloody tails"], ["rope cuffs", "fan"], "3/31/Wind_Whip.png", [0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["gleipnir", "whip", 4, 0, 1, [], ["wind whip", "honey cod steak"], "6/6e/Gleipnir.png", [0, 0, 0, 0, 0, 0, 54, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["plasma whip", "whip", 4, 0, 1, [], ["lightning whip", "laser pointer"], "e/ee/Plasma_Whip.png", [0, 0, 0, 0, 0, 0, 49, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.3, 0, 0]],
-  ["whip of nine bloody tails", "whip", 5, 0, 1, [], ["vf blood sample", "wind whip"], "3/3c/Whip_of_Nine_Bloody_Tails.png", [0, 0, 0, 0, 0, 0, 70, 0, 0, 0, 40, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  ["whip", "whip", 1, 0, 1, ["rope cuffs", "bullwhip"], [], "7/71/Whip.png", [0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["rope cuffs", "whip", 2, 0, 1, ["wind whip"], ["whip", "stallion medal"], "c/c8/Rope_Cuffs.png", [0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["bullwhip", "whip", 2, 0, 1, ["thunder whip", "lightning whip"], ["whip", "razor"], "4/44/Bullwhip.png", [0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["wind whip", "whip", 3, 0, 1, ["gleipnir", "whip of nine bloody tails"], ["rope cuffs", "fan"], "3/31/Wind_Whip.png", [0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["thunder whip", "whip", 3, 0, 1, [], ["bullwhip", "gold"], "0/07/Thunder_Whip.png", [0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["lightning whip", "whip", 3, 0, 1, ["plasma whip"], ["bullwhip", "dead battery"], "6/64/Lightning_Whip.png", [0, 0, 0, 0, 0, 0, 42, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["gleipnir", "whip", 4, 0, 1, [], ["wind whip", "honey cod steak"], "6/6e/Gleipnir.png", [0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["plasma whip", "whip", 4, 0, 1, [], ["lightning whip", "laser pointer"], "e/ee/Plasma_Whip.png", [0, 0, 0, 0, 0, 0, 54, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.3, 0, 0]],
+  ["whip of nine bloody tails", "whip", 5, 0, 1, [], ["vf blood sample", "wind whip"], "3/3c/Whip_of_Nine_Bloody_Tails.png", [0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 40, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 ]
