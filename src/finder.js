@@ -18,7 +18,7 @@ export class Finder extends I18n {
   constructor(dictJsons, i18n) {
     super(i18n)
 
-    const [dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals] = dictJsons.map((obj) => {
+    const [dictItems, dictCharacters, dictWeapons, dictAreas, dictAnimals, dictIndex] = dictJsons.map((obj) => {
       // Fix: Avoid changing argument properties directly
       return JSON.parse(JSON.stringify(obj))
     })
@@ -28,6 +28,8 @@ export class Finder extends I18n {
     Object.defineProperty(this, WEAPONS, { value: dictWeapons })
     Object.defineProperty(this, AREAS, { value: dictAreas })
     Object.defineProperty(this, ANIMALS, { value: dictAnimals })
+    Object.defineProperty(this, 'patch', { value: dictIndex.patch })
+    Object.defineProperty(this, 'reference', { value: dictIndex.reference })
   }
 
   findById(id) {

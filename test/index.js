@@ -8,6 +8,7 @@ before(() => {
 describe('Finder', () => {
   it('バージョン情報を返すべき', () => {
     assert(finder.version)
+    assert(finder.patch)
   })
 
   describe('Charas どのキャラのビルドか', () => {
@@ -46,6 +47,7 @@ describe('Finder', () => {
           'bamboo',
           'steel chain',
           'starter guitar',
+          'whip'
         ]
       )
     })
@@ -71,7 +73,7 @@ describe('Finder', () => {
       deepStrictEqual(
         [first, last],
         [
-          ['bastard sword', { attack: 45, movementSpeed: -0.1 }],
+          ['bastard sword', { attack: 45, movementSpeed: -0.05 }],
           ['feather', { movementSpeed: 0.08 }],
         ]
       )
@@ -84,7 +86,7 @@ describe('Finder', () => {
       fragarach = finder.findById('Fragarach')
     })
     it('.getStats フラガラッハの性能を返すべき', () => {
-      deepStrictEqual(fragarach.getStats(), { attack: 75, movementSpeed: 0.2 })
+      deepStrictEqual(fragarach.getStats(), { attack: 90, movementSpeed: 0.2 })
     })
     it('.getComponents フラガラッハを制作するための素材を返すべき', () => {
       deepStrictEqual(
@@ -201,8 +203,8 @@ describe('Finder', () => {
           attack: 30,
           attackSpeed: 15,
           skillDamage: 16,
-          defense: 37,
-          defenseAttack: 26,
+          defense: 43,
+          defenseAttack: 22,
           movementSpeed: 0.45,
           movementSpeedNotCombat: 0.2,
         },
