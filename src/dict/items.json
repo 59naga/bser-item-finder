@@ -533,7 +533,7 @@
   ["wind whip", "whip", 3, 0, 1, ["gleipnir", "whip of nine bloody tails"], ["rope cuffs", "fan"], "3/31/Wind_Whip.png", [0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["thunder whip", "whip", 3, 0, 1, [], ["bullwhip", "gold"], "0/07/Thunder_Whip.png", [0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["lightning whip", "whip", 3, 0, 1, ["plasma whip"], ["bullwhip", "dead battery"], "6/64/Lightning_Whip.png", [0, 0, 0, 0, 0, 0, 42, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["gleipnir", "whip", 4, 0, 1, [], ["wind whip", "honey cod steak"], "6/6e/Gleipnir.png", [0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["gleipnir", "whip", 4, 0, 1, [], ["wind whip", "spiked plank"], "6/6e/Gleipnir.png", [0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["plasma whip", "whip", 4, 0, 1, [], ["lightning whip", "laser pointer"], "e/ee/Plasma_Whip.png", [0, 0, 0, 0, 0, 0, 54, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.3, 0, 0]],
   ["whip of nine bloody tails", "whip", 5, 0, 1, [], ["vf blood sample", "wind whip"], "3/3c/Whip_of_Nine_Bloody_Tails.png", [0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 40, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 ]
