@@ -115,7 +115,7 @@ describe('Finder', () => {
         ['force core', [['powder of life', ['tree of life', 'stone']], 'meteorite']],
       ])
     })
-    it('.getParents 派生先アイテムを取得する', () => {
+    it('.getParents 派生先アイテムを取得すべき', () => {
       const branchParents = finder
         .findById('branch')
         .getParents()
@@ -129,6 +129,59 @@ describe('Finder', () => {
         'willow leaf spike',
         'wooden bow',
         'mistilteinn',
+      ])
+    })
+    it('.getOrigins エリアごとの在庫を返すべき', () => {
+      const bread = finder.findById('bread')
+      const found = Object.entries(bread.getOrigins()).map(([name, items]) => {
+        return [name, items.map((item) => item.getCount())]
+      })
+      deepStrictEqual(found, [
+        ['dock', [4]],
+        ['school', [6]],
+        ['chapel', [4]],
+      ])
+    })
+    it('.getOrigins エリアごとの材料の在庫を返すべき', () => {
+      const fishNchips = finder.findById('fish and chips')
+      const found = Object.entries(fishNchips.getOrigins()).map(([name, items]) => {
+        return [name, items.map((item) => [item.id, item.getCount()])]
+      })
+      deepStrictEqual(found, [
+        ['beach', [['cod', 4]]],
+        [
+          'uptown',
+          [
+            ['cod', 4],
+            ['oil', 7],
+          ],
+        ],
+        [
+          'dock',
+          [
+            ['cod', 4],
+            ['lighter', 8],
+          ],
+        ],
+        ['archery range', [['oil', 5]]],
+        ['school', [['lighter', 7]]],
+        ['chapel', [['potato', 4]]],
+        [
+          'factory',
+          [
+            ['lighter', 8],
+            ['oil', 7],
+          ],
+        ],
+        [
+          'alley',
+          [
+            ['potato', 4],
+            ['lighter', 8],
+          ],
+        ],
+        ['avenue', [['oil', 8]]],
+        ['temple', [['potato', 8]]],
       ])
     })
   })

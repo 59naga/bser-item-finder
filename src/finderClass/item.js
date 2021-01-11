@@ -335,4 +335,20 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
 
     return equipment || null
   }
+
+  getOrigins() {
+    const origins = {}
+
+    const componentIds = this.getComponents().map((item) => item.id)
+    this.getFinder()
+      .findAreas()
+      .forEach((area) => {
+        const found = area.getCountAndRate().filter((item) => item.id === this.id || componentIds.indexOf(item.id) > -1)
+        if (found.length > 0) {
+          origins[area.name] = found
+        }
+      })
+
+    return origins
+  }
 }
