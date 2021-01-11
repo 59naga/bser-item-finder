@@ -1,6 +1,6 @@
 {
   "name": "bser-item-finder",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "main": "src/index.js",
   "module": "src/index.js",
   "description": "Eternal Return: Black Survival Item Search Library",
