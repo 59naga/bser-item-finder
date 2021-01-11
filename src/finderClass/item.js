@@ -346,9 +346,12 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
     this.getFinder()
       .findAreas()
       .forEach((area) => {
+        const lowPriorities = ['meat', 'leather', 'branch', 'stone', 'water', 'moonstone']
         const found = area.getCountAndRate().filter((item) => familyIds.indexOf(item.id) > -1)
         if (found.length > 0) {
-          origins[area.name] = found.sort((a, b) => b.rarity - a.rarity)
+          origins[area.name] = found
+            .sort((a, b) => b.rarity - a.rarity)
+            .sort((a, b) => lowPriorities.indexOf(a.id) - lowPriorities.indexOf(b.id))
         }
       })
 

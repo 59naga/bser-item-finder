@@ -341,7 +341,7 @@
   ["florentine", "dual swords", 3, 0, 1, ["divine dual swords"], ["twin swords", "blueprint"], "c/cd/Florentine.png", [0, 0, 0, 0, 0, 0, 23, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["dioscuri", "dual swords", 4, 0, 1, [], ["twin swords", "ion battery"], "4/45/Dioscuri.png", [0, 0, 0, 0, 0, 0, 40, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["divine dual swords", "dual swords", 4, 0, 1, [], ["florentine", "nail"], "7/72/Divine_Dual_Swords.png", [0, 0, 0, 0, 0, 0, 44, 10, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0]],
-  ["lloigor & zahr", "dual swords", 4, 0, 1, [], ["twin swords", "poison"], "b/ba/Lloigor_%26_Zahr.png", [0, 0, 0, 0, 0, 0, 33, 20, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["lloigor & zahr", "dual swords", 4, 0, 1, [], ["twin swords", "poison"], "b/ba/Lloigor_&_Zahr.png", [0, 0, 0, 0, 0, 0, 33, 20, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["starsteel twin swords", "dual swords", 4, 0, 1, [], ["twin swords", "moonstone"], "2/2e/Starsteel_Twin_Swords.png", [0, 0, 0, 0, 0, 0, 55, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["walther ppk", "pistol", 1, 0, 1, ["magnum-python", "beretta m92f"], [], "2/27/Walter_PPK.png", [0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 6, 0]],
   ["beretta m92f", "pistol", 2, 0, 1, ["fn57", "double revolver sp", "electron blaster", "kelte"], ["walther ppk", "leather"], "d/d7/Beretta_M92F.png", [0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 6, 0]],
