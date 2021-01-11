@@ -339,13 +339,16 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
   getOrigins() {
     const origins = {}
 
-    const componentIds = this.getComponents().map((item) => item.id)
+    const familyIds = [this.id]
+    Item.traverseTreeItems(this.getTree(), (item) => {
+      familyIds.push(item.id)
+    })
     this.getFinder()
       .findAreas()
       .forEach((area) => {
-        const found = area.getCountAndRate().filter((item) => item.id === this.id || componentIds.indexOf(item.id) > -1)
+        const found = area.getCountAndRate().filter((item) => familyIds.indexOf(item.id) > -1)
         if (found.length > 0) {
-          origins[area.name] = found
+          origins[area.name] = found.sort((a, b) => b.rarity - a.rarity)
         }
       })
 

@@ -10,12 +10,17 @@ export class Build extends FinderClass {
   }
 
   addItem(id) {
+    const item = this.getFinder().findById(id)
+    if (!item) {
+      return
+    }
+
     const value = this.items || []
-    value.push(this.getFinder().findById(id))
+    value.push(item)
     Object.defineProperty(this, 'items', { value, writable: true })
   }
 
-  getItems(id) {
+  getItems() {
     return this.items || []
   }
 
