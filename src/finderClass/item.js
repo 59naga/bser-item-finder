@@ -5,7 +5,8 @@ import { FinderClass } from './_finderClass'
 const CHILDREN = Symbol('children')
 const PARENTS = Symbol('parents')
 const STATS = Symbol('stats')
-export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'Rate', 'Index']), ['Owner']) {
+const countFields = ['Count', 'Rate', 'Index']
+export class Item extends mixinWritable(mixinCountable(FinderClass, countFields), ['Owner']) {
   static getStatsKeys() {
     return [
       'hp',
@@ -192,6 +193,16 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
 
     Object.defineProperty(this, STATS, { value: null, writable: true }) // writable but not visible
     Object.assign(this, Item.getProps(itemArray))
+    Object.defineProperty(this, 'itemArray', { value: itemArray })
+  }
+
+  clone() {
+    const cloned = new this.constructor(this.finder, this.itemArray)
+    countFields.forEach((field) => {
+      const inheritedValue = this[`get${field}`]()
+      cloned[`set${field}`](inheritedValue)
+    })
+    return cloned
   }
 
   getRarityName() {
@@ -283,8 +294,7 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
 
   getProgressEquipment(areaItems, inventory = []) {
     const families = [this]
-    const tree = this.getTree()
-    Item.traverseTreeItems(tree, (item) => {
+    Item.traverseTreeItems(this.getTree(), (item) => {
       if (this.type !== item.type) {
         return
       }
@@ -306,8 +316,21 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, ['Count', 'R
         const isInstantEquipment = availableItems.find((areaItem) => areaItem.id === family.id)
         return isInstantEquipment
       }
-      const obtainableIds = componentIds.filter((id) => availableItems.find((areaItem) => areaItem.id === id))
-      return componentIds.length === obtainableIds.length
+      const usedItems = []
+      const obtainableIds = componentIds.filter((id) =>
+        availableItems.find((areaItem) => {
+          const used = areaItem.getCount() > 0 && areaItem.id === id
+          if (used) {
+            usedItems.push(areaItem)
+          }
+          return used
+        })
+      )
+      const found = componentIds.length === obtainableIds.length
+      if (found) {
+        usedItems.forEach((item) => item.downCount())
+      }
+      return found
     })
 
     return equipment || null

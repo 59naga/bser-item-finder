@@ -66,9 +66,9 @@ export class Build extends FinderClass {
     const progresses = []
 
     const areas = this.getAreas()
-    const areaItems = areas.map((area) => this.getFinder().findAreaByName(area.name).getCountAndRate())
+    const areasItems = areas.map((area) => this.getFinder().findAreaByName(area.name).getCountAndRate())
     for (let progress = 0; progress < areas.length; progress++) {
-      const currentItems = areaItems.slice(0, progress + 1)
+      const currentItems = areasItems.slice(0, progress + 1).map((areaItems) => areaItems.map((item) => item.clone()))
       const progressEquipments = this.getItems().map((item) => item.getProgressEquipment(currentItems, inventoryArray))
       progresses.push([areas[progress], progressEquipments])
     }

@@ -5,7 +5,7 @@ export class FinderClass {
   static execConditions(array, conditions) {
     return true
   }
-  
+
   constructor(finder) {
     Object.defineProperty(this, FINDER, { value: finder })
   }

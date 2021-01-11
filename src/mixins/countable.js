@@ -17,6 +17,14 @@ export default (mixinTarget, keys = ['Count']) => {
         Object.defineProperty(this, symbol, { value: value + 1, writable: true })
       }
 
+      [`down${key}`]() {
+        let value = this[symbol]
+        if (value == null) {
+          value = 0
+        }
+        Object.defineProperty(this, symbol, { value: value - 1, writable: true })
+      }
+
       [`get${key}`]() {
         return this[symbol]
       }

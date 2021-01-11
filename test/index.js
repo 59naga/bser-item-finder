@@ -47,7 +47,7 @@ describe('Finder', () => {
           'bamboo',
           'steel chain',
           'starter guitar',
-          'whip'
+          'whip',
         ]
       )
     })
@@ -84,6 +84,12 @@ describe('Finder', () => {
     let fragarach
     before(() => {
       fragarach = finder.findById('Fragarach')
+    })
+    it('数量を制御すべき', () => {
+      fragarach.setCount(1)
+      const fragarach2 = fragarach.clone()
+      fragarach2.downCount()
+      deepStrictEqual([fragarach.getCount(), fragarach2.getCount()], [1, 0])
     })
     it('.getStats フラガラッハの性能を返すべき', () => {
       deepStrictEqual(fragarach.getStats(), { attack: 90, movementSpeed: 0.2 })
@@ -181,7 +187,7 @@ describe('Finder', () => {
     it('.getProgresses 巡回するエリアごとにビルドの進捗を返すべき', () => {
       const build = finder.createBuild(
         ['fragarach', 'laurel wreath', 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
-        ['beach', 'uptown', 'dock', 'hotel', 'archery range']
+        ['beach', 'uptown', 'dock', 'hotel', 'archery range', 'cemetery']
       )
       const progresses = build.getProgresses(['kitchen knife', ['bread', 2], ['water', 2]])
       const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
@@ -189,9 +195,9 @@ describe('Finder', () => {
         ['army knife', null, null, null, null, null],
         ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
         ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
-        // FIXME: should be count for actual number of materials
-        ['fragarach', null, null, 'bracelet of skadi', 'running shoes', 'emerald tablet'],
-        ['fragarach', null, 'kabana', 'bracelet of skadi', 'boots of hermes', 'emerald tablet'],
+        ['fragarach', null, null, 'crimson bracelet', 'running shoes', 'flower of fate'],
+        ['fragarach', null, 'kabana', 'crimson bracelet', 'heelys', 'flower of fate'],
+        ['fragarach', 'laurel wreath', 'kabana', 'crimson bracelet', 'heelys', 'flower of fate'],
       ])
     })
     it('.calcTotalStats 選択した装備の合計スタッツを返すべき', () => {
