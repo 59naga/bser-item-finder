@@ -45,6 +45,10 @@ export class Finder extends I18n {
     return new Item(this, foundArray)
   }
 
+  findByLocaled(localedStr) {
+    return this.findById(this.____(localedStr))
+  }
+
   findCharacterByName(name) {
     const lowered = String(name).toLowerCase()
     const foundArray = this[CHARACTERS].find((array) => {
@@ -82,6 +86,14 @@ export class Finder extends I18n {
     }
 
     return new Area(this, foundArray)
+  }
+
+  getAreaCount(name, id) {
+    const area = this.findAreaByName(name)
+    const items = area.getCountAndRate()
+    const item = items.find((item) => item.id === id)
+
+    return item.getCount()
   }
 
   getFirstWeapons() {
@@ -163,5 +175,28 @@ export class Finder extends I18n {
     }).map((array) => {
       return new Animal(this, array)
     })
+  }
+
+  // maintanance methods (for patches)
+  patchStats(localedStr, key, value) {
+    const item = this.findByLocaled(localedStr)
+    item.patchStats(key, value)
+  }
+
+  getItemArray() {
+    return this[ITEMS]
+  }
+
+  patchAreaCount(localedAreaName, localedId, count) {
+    const area = this.findAreaByName(this.____(localedAreaName))
+    const id = this.____(localedId)
+    const item = area.items.find(([itemId]) => itemId === id)
+    if (item) {
+      item[1] = count
+    }
+  }
+
+  getAreaArray() {
+    return this[AREAS]
   }
 }

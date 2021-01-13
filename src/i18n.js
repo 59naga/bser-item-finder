@@ -42,4 +42,12 @@ export class I18n {
     const chosenLocale = this.locales[chosenLang] || {}
     return chosenLocale[str] || this.locales.en[str] || str
   }
+
+  ____(str) {
+    const chosenLang = this.lang
+    const chosenLocale = this.locales[chosenLang] || {}
+    return Object.keys(chosenLocale).find((key) => {
+      return chosenLocale[key] === str
+    })
+  }
 }

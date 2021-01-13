@@ -262,10 +262,10 @@ describe('Finder', () => {
           attack: 30,
           attackSpeed: 15,
           skillDamage: 16,
-          defense: 43,
+          defense: 47,
           defenseAttack: 22,
           movementSpeed: 0.45,
-          movementSpeedNotCombat: 0.2,
+          movementSpeedNotCombat: 0.1,
         },
         [{ healingReductionSkill: 40 }, { healingReductionAttack: 40 }, { healingReductionAttack: 40 }, { healingReductionSkill: 40 }],
       ])

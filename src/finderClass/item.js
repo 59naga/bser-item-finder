@@ -213,6 +213,15 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
     return Item.getStats(this)
   }
 
+  patchStats(key, value) {
+    const stats = this[STATS]
+    const index = Item.getStatsKeys().indexOf(key)
+    if (index > -1) {
+      stats[index] = value
+    }
+    return this.itemArray
+  }
+
   getParents() {
     return this.loadParents()
   }

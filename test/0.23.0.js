@@ -1,7 +1,7 @@
 import { strictEqual, deepStrictEqual } from 'assert'
 
 import { createFinder } from '../src'
-describe('expect applied 0.23.0 patch buff/nerf stats', () => {
+describe.skip('expect applied 0.23.0 patch buff/nerf stats', () => {
   const finder = createFinder()
   finder.setLang('ja')
 
