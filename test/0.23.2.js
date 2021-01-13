@@ -1,11 +1,14 @@
 import { strictEqual } from 'assert'
 
+// うち、XCRと狼牙棒の変更が撤回されているため、撤回後のステータスを保証すべき
+// https://steamcommunity.com/games/1049590/announcements/detail/2942506324984421741
+
 import { createFinder } from '../src'
 describe('expect applied 0.23.2 patch buff/nerf stats', () => {
   const finder = createFinder()
   finder.setLang('ja')
 
-  it('', () => {
+  it('0.23.2を返すべき', () => {
     strictEqual(finder.patch, '0.23.2')
   })
   it('weapons', () => {
