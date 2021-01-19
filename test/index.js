@@ -74,7 +74,7 @@ describe('Finder', () => {
         [first, last],
         [
           ['bastard sword', { attack: 45, movementSpeed: -0.05 }],
-          ['feather', { movementSpeed: 0.08 }],
+          ['feather', { movementSpeed: 0.06 }],
         ]
       )
     })
@@ -246,9 +246,9 @@ describe('Finder', () => {
       const itemPerAreas = progresses.map(([name, progress]) => progress.map((item) => (item ? item.id : item)))
       deepStrictEqual(itemPerAreas, [
         ['army knife', null, null, null, null, null],
-        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
-        ['army knife', null, null, 'crimson bracelet', 'running shoes', 'flower'],
-        ['fragarach', null, null, 'crimson bracelet', 'running shoes', 'flower of fate'],
+        ['army knife', null, null, 'bracelet', 'running shoes', 'flower'],
+        ['army knife', null, null, 'bracelet', 'running shoes', 'flower'],
+        ['fragarach', null, null, 'bracelet', 'running shoes', 'flower of fate'],
         ['fragarach', null, 'kabana', 'crimson bracelet', 'heelys', 'flower of fate'],
         ['fragarach', 'laurel wreath', 'kabana', 'crimson bracelet', 'heelys', 'flower of fate'],
       ])
@@ -264,6 +264,7 @@ describe('Finder', () => {
           skillDamage: 16,
           defense: 47,
           defenseAttack: 22,
+          defenseCriticalDamage: 10,
           movementSpeed: 0.45,
           movementSpeedNotCombat: 0.1,
         },

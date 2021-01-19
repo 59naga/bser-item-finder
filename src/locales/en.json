@@ -612,6 +612,7 @@
   "defense": "Defense",
   "defenseAttack": "Normal Attack Damage Reduction",
   "defenseSkill": "Skill Damage Reduction (%)",
+  "defenseCriticalDamage": "Critical Damage Reduction (%)",
   "movementSpeed": "Movement Speed",
   "movementSpeedNotCombat": "Out of Combat Movement Speed",
   "healingReductionAttack": "Healing Reduction (Normal Attacks) (%)",

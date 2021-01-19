@@ -27,6 +27,7 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
       'defense',
       'defenseAttack',
       'defenseSkill',
+      'defenseCriticalDamage',
       'movementSpeed',
       'movementSpeedNotCombat',
       'healingReductionAttack',
@@ -193,6 +194,20 @@ export class Item extends mixinWritable(mixinCountable(FinderClass, countFields)
 
     Object.defineProperty(this, STATS, { value: null, writable: true }) // writable but not visible
     Object.assign(this, Item.getProps(itemArray))
+    if (this.type === 'head') {
+      if (this.rarity === 1) {
+        this.patchStats('defenseCriticalDamage', 2)
+      }
+      if (this.rarity === 2) {
+        this.patchStats('defenseCriticalDamage', 4)
+      }
+      if (this.rarity === 3) {
+        this.patchStats('defenseCriticalDamage', 7)
+      }
+      if (this.rarity > 3) {
+        this.patchStats('defenseCriticalDamage', 10)
+      }
+    }
     Object.defineProperty(this, 'itemArray', { value: itemArray })
   }
 

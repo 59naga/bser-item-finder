@@ -612,6 +612,7 @@
   "defense": "防御力",
   "defenseAttack": "基本攻撃ダメージ減少",
   "defenseSkill": "スキルダメージ減少(%)",
+  "defenseCriticalDamage": "致命打ダメージ減少(%)",
   "movementSpeed": "移動速度",
   "movementSpeedNotCombat": "非戦闘中の移動速度",
   "healingReductionAttack": "基本攻撃時の治癒効果減少(%)",

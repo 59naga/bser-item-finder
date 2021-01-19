@@ -1,7 +1,7 @@
 import { strictEqual, deepStrictEqual } from 'assert'
 
 import { createFinder } from '../src'
-describe.only('expect applied 0.24.0 patch buff/nerf stats', () => {
+describe('expect applied 0.24.0 patch buff/nerf stats', () => {
   const finder = createFinder()
   finder.setLang('ja')
 
@@ -72,10 +72,32 @@ describe.only('expect applied 0.24.0 patch buff/nerf stats', () => {
     strictEqual(finder.getAreaCount(finder.____('洋弓場'), finder.____('紙')), 6)
     strictEqual(finder.getAreaCount(finder.____('教会'), finder.____('投げ罠')), 4)
     strictEqual(finder.getAreaCount(finder.____('教会'), finder.____('紙')), 7)
-    // 一般等級: 致命打ダメージ減少 2%
-    // 高級等級: 致命打 ダメージ減少 4%
-    // 貴重等級: 致命打 ダメージ減少 7%
-    // 英雄、伝説等級: 致命打 ダメージ減少 10%
+
+    strictEqual(finder.findByLocaled('ソードストッパー').getStats().defenseCriticalDamage, 10)
+    strictEqual(finder.findByLocaled('帽子').getStats().defenseCriticalDamage, 2)
+    strictEqual(finder.findByLocaled('安全帽').getStats().defenseCriticalDamage, 4)
+    strictEqual(finder.findByLocaled('ティアラ').getStats().defenseCriticalDamage, 7)
+    strictEqual(finder.findByLocaled('戦術OPSヘルメット').getStats().defenseCriticalDamage, 10)
+  })
+
+  describe.skip('defenseCriticalDamage列を追加', () => {
+    it('', () => {
+      // Item.getStatsKeys().indexOf('defenseSkill') + 1
+      const defenseCriticalDamageIndex = 18
+
+      const items = finder.getItemArray().map((item) => {
+        const keys = ['id', 'type', 'rarity', 'stackable', 'quantity', 'parents', 'children', 'src', 'stats']
+        const statsIndex = keys.indexOf('stats')
+        const statsValues = item[statsIndex]
+        statsValues.splice(defenseCriticalDamageIndex, 0, 0)
+        return item
+      })
+      require('fs').writeFileSync('0.24.0.dictItemsWithDefenseCriticalDamage.json', JSON.stringify(items))
+    })
+    it('', () => {
+      finder.patchStats('ソードストッパー', 'defenseCriticalDamage', 10)
+      require('fs').writeFileSync('0.24.0.dictItems.json', JSON.stringify(finder.getItemArray()))
+    })
   })
 
   describe.skip('src/dict更新用 パッチ実行時だけ実行する', () => {
@@ -132,7 +154,6 @@ describe.only('expect applied 0.24.0 patch buff/nerf stats', () => {
       finder.patchStats('羽', 'movementSpeed', 0.06)
       finder.patchStats('狙撃スコープ', 'visionRange', 4.5)
       finder.patchStats('狙撃スコープ', 'attack', 10)
-      // finder.patchStats('ソードストッパー', 'defenseCriticalDamage', 10)
 
       require('fs').writeFileSync('0.24.0.dictItems.json', JSON.stringify(finder.getItemArray()))
     })

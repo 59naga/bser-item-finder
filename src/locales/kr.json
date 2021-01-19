@@ -612,6 +612,7 @@
   "defense": "방어력",
   "defenseAttack": "기본 공격 피해 감소",
   "defenseSkill": "스킬 피해 감소(%)",
+  "defenseCriticalDamage": "치명타 피해량 감소(%)",
   "movementSpeed": "이동 속도",
   "movementSpeedNotCombat": "비전투중 이동 속도",
   "healingReductionAttack": "기본 공격 시 치유 감소(%)",
