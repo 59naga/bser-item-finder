@@ -235,7 +235,7 @@
   ["leather shield", "arm", 2, 0, 1, ["steel shield", "mithril shield"], ["turtle shell", "leather"], "9/98/Leather_Shield.png", [0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["squad leader armband", "arm", 2, 0, 1, ["creed of the knight"], ["bandage", "needle"], "d/d1/Squad_Leader_Armband.png", [0, 1.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["bazuband", "arm", 3, 0, 1, ["sword stopper"], ["bracer", "iron sheet"], "5/59/Bazuband.png", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-  ["crimson bracelet", "arm", 3, 0, 1, ["bracelet of skadi"], ["bracelet", "spiked plank"], "8/81/Crimson_Bracelet.png", [200, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+  ["crimson bracelet", "arm", 3, 0, 1, ["bracelet of skadi", "aegis"], ["bracelet", "spiked plank"], "8/81/Crimson_Bracelet.png", [200, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["cube watch", "arm", 3, 0, 1, [], ["watch", "moonstone"], "f/f0/Cube_Watch.png", [0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["golden bracelet", "arm", 3, 0, 1, ["draupnir"], ["bracelet", "gold"], "6/6c/Golden_Bracelet.png", [0, 0, 0, 220, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
   ["sheath", "arm", 3, 0, 1, ["sword of shah jahan"], ["leather", "iron sheet"], "6/61/Sheath.png", [0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
